@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaker Script — AI in the Ham Shack | VK4WIP</title>
+<style>
+  @media print {
+    .no-print { display: none !important; }
+    .slide-block { page-break-inside: avoid; }
+    body { font-size: 12pt; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #f5f5f0;
+    color: #1a1a1a;
+    line-height: 1.7;
+  }
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+  /* Cover */
+  .cover {
+    background: #0B2D53;
+    color: #fff;
+    padding: 48px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .cover h1 { font-size: 32px; color: #F4C542; margin-bottom: 10px; }
+  .cover p  { font-size: 17px; color: rgba(255,255,255,.75); }
+  .cover .sub { font-size: 20px; color: rgba(255,255,255,.9); margin: 12px 0 4px; }
+  .cover .tip { font-size: 15px; color: rgba(255,255,255,.55); margin-top: 18px; font-style: italic; }
+
+  /* Slide block */
+  .slide-block {
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 36px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    overflow: hidden;
+  }
+  .slide-header {
+    background: #0B2D53;
+    color: #fff;
+    padding: 14px 28px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .slide-num {
+    background: #F4C542;
+    color: #0B2D53;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .slide-header h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .slide-header .timing {
+    margin-left: auto;
+    font-size: 14px;
+    color: rgba(255,255,255,.5);
+    white-space: nowrap;
+  }
+
+  .slide-body { padding: 24px 28px; }
+
+  /* Talking points */
+  .points {
+    background: #f0f6ff;
+    border-left: 5px solid #1E5CB3;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+  .points h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #1E5CB3;
+    font-family: Arial, sans-serif;
+    margin-bottom: 8px;
+  }
+  .points ul { list-style: none; padding: 0; }
+  .points li {
+    font-size: 15px;
+    color: #333;
+    padding: 3px 0 3px 18px;
+    position: relative;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #1E5CB3;
+    font-size: 13px;
+  }
+
+  /* Script */
+  .script h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #555;
+    font-family: Arial, sans-serif;
+    margin-bottom: 12px;
+  }
+  .script p {
+    font-size: 17px;
+    color: #222;
+    margin-bottom: 14px;
+    line-height: 1.75;
+  }
+
+  /* Cues */
+  .cue {
+    display: inline-block;
+    background: #fff8e1;
+    border: 1.5px solid #F4C542;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    color: #7B6000;
+    margin: 0 4px;
+    white-space: nowrap;
+  }
+  .cue.red { background: #ffebee; border-color: #E53935; color: #B71C1C; }
+  .cue.green { background: #e8f5e9; border-color: #2E7D32; color: #1B5E20; }
+
+  /* Transition banner */
+  .transition {
+    background: #0B2D53;
+    color: #F4C542;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    margin-top: 14px;
+    display: inline-block;
+  }
+
+  /* Timing overview */
+  .timing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    margin-bottom: 36px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  }
+  .timing-table th {
+    background: #0B2D53;
+    color: #F4C542;
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .timing-table td {
+    padding: 9px 16px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+  }
+  .timing-table tr:last-child td { border-bottom: none; }
+  .timing-table tr:nth-child(even) td { background: #f8f8f8; }
+  .timing-table .demo td { color: #B71C1C; font-weight: 600; }
+  .timing-table .disc td { color: #1B5E20; font-weight: 600; }
+
+  /* Print button */
+  .no-print {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #0B2D53;
+    color: #F4C542;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 999;
+  }
+  .no-print:hover { background: #1E5CB3; }
+
+  /* Section divider */
+  .section-divider {
+    text-align: center;
+    margin: 40px 0 24px;
+    position: relative;
+  }
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0; right: 0;
+    height: 2px;
+    background: #ddd;
+  }
+  .section-divider span {
+    background: #f5f5f0;
+    padding: 0 16px;
+    position: relative;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #888;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<button class="no-print" onclick="window.print()">🖨️ Print Script</button>
+
+<div class="page">
+
+<!-- COVER -->
+<div class="cover">
+  <h1>📡 Speaker Script &amp; Talking Points</h1>
+  <div class="sub">AI in the Ham Shack — Useful, Safe &amp; Simple</div>
+  <p>VK4WIP — Ipswich &amp; District Amateur Radio Club | Club Presentation Night 2026</p>
+  <p class="tip">
+    Print this document before your talk. Read the script naturally — you don't have to use every word.<br>
+    Cues in <span style="background:#fff8e1;padding:1px 7px;border-radius:4px;color:#7B6000;font-weight:700;">YELLOW</span> are stage directions.
+    <span style="background:#ffebee;padding:1px 7px;border-radius:4px;color:#B71C1C;font-weight:700;">RED</span> = pause for demos.
+    <span style="background:#e8f5e9;padding:1px 7px;border-radius:4px;color:#1B5E20;font-weight:700;">GREEN</span> = discussion.
+  </p>
+</div>
+
+<!-- TIMING OVERVIEW -->
+<h2 style="font-family:Arial,sans-serif;font-size:18px;color:#0B2D53;margin-bottom:14px;">⏱️ Run Sheet — Total approx. 75–90 min</h2>
+<table class="timing-table">
+  <tr><th>Slides</th><th>Section</th><th>Time</th><th>Running total</th></tr>
+  <tr><td>1–3</td><td>Opening &amp; Agenda</td><td>5 min</td><td>5 min</td></tr>
+  <tr><td>4–5</td><td>What is AI &amp; Why it suits hams</td><td>6 min</td><td>11 min</td></tr>
+  <tr><td>6–11</td><td>Five practical examples</td><td>15 min</td><td>26 min</td></tr>
+  <tr><td>12–13</td><td>Getting started &amp; prompt tips</td><td>6 min</td><td>32 min</td></tr>
+  <tr class="demo"><td>14</td><td>🔴 LIVE DEMO — Try ChatGPT</td><td>8–10 min</td><td>42 min</td></tr>
+  <tr><td>15–16</td><td>WSPR + propagation tools</td><td>6 min</td><td>48 min</td></tr>
+  <tr class="demo"><td>16</td><td>🔴 LIVE DEMO — WSPR maps</td><td>5 min</td><td>53 min</td></tr>
+  <tr><td>17–18</td><td>Safety &amp; limitations</td><td>8 min</td><td>61 min</td></tr>
+  <tr class="disc"><td>19</td><td>💬 Discussion</td><td>12–15 min</td><td>76 min</td></tr>
+  <tr><td>20–22</td><td>First steps, tools &amp; close</td><td>6 min</td><td>82 min</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-divider"><span>Opening</span></div>
+
+<!-- SLIDE 1 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">1</div>
+    <h2>Title — AI in the Ham Shack</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Welcome the group, introduce yourself and your callsign</li>
+        <li>Quick show of hands — who has heard of ChatGPT? Who has tried it?</li>
+        <li>Set a relaxed, no-jargon tone from the very first sentence</li>
+        <li>Reassure that this is completely beginner-friendly</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Good evening everyone, and welcome to tonight's presentation. For those I haven't met, I'm [YOUR NAME], [YOUR CALLSIGN].
+        Tonight we're going to have a look at something that's been getting a lot of attention lately — artificial intelligence, or AI.
+      </p>
+      <p>
+        Now before anyone tunes out — <span class="cue">pause for a laugh</span> — I promise this is not going to be a technology lecture.
+        There are no complicated diagrams, no computer science theory, and nobody is going to ask you to write any code.
+      </p>
+      <p>
+        I want to start with a quick show of hands. Who here has <em>heard of</em> something called ChatGPT?
+        <span class="cue">Wait for hands.</span>
+        Good. And who has actually <em>tried</em> it?
+        <span class="cue">Note the number — reference it later.</span>
+        Excellent. For those who have, tonight might give you some new ideas. For those who haven't — by the end of tonight, you'll have had a go yourself.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">2</div>
+    <h2>The One Thing to Remember</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Establish the whole talk's central message in one sentence</li>
+        <li>Frame AI as a tool — like a multimeter or an antenna analyser — not a threat</li>
+        <li>Three roles: better manual, faster note-taker, helpful tutor</li>
+        <li>Come back to this slide at the very end</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        If you only remember one thing from tonight, I want it to be this sentence on the screen.
+        <span class="cue">Read it aloud slowly.</span>
+      </p>
+      <p>
+        <em>"AI is not replacing the operator. It is a smart assistant that saves time, explains things, and helps you learn faster."</em>
+      </p>
+      <p>
+        Think of AI the same way you think of any other tool in the shack. Your SWR meter didn't replace you as the operator — it just gave you better information faster.
+        Your logging software didn't take away the joy of working DX — it just saved you writing everything in a notebook.
+        AI is exactly the same idea. It is a tool on the bench.
+      </p>
+      <p>
+        Specifically, it does three things really well. It acts like a <strong>better manual</strong> — you ask it a question and it finds the answer instantly.
+        It acts like a <strong>faster note-taker</strong> — you describe something and it writes it up properly.
+        And it acts like a <strong>helpful tutor</strong> — you tell it what you don't understand, and it explains it at whatever level you need.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">3</div>
+    <h2>Tonight's Agenda</h2>
+    <span class="timing">~1 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Preview the six sections briefly</li>
+        <li>Flag the two live demo slides — everyone will participate</li>
+        <li>Invite questions at any time, not just the end</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Here's what we'll cover tonight. We'll start with the basics — what AI actually is in plain English.
+        Then we'll look at five very practical things it can do in your ham shack.
+        Partway through we'll have a live demo — so if you've got your phone or tablet with you, keep it handy, because you'll be having a go yourself.
+        We'll also look at some real-time propagation tools on the web.
+        And we'll finish with some important safety tips and a group discussion.
+      </p>
+      <p>
+        If you have a question at any point, please just put your hand up. We won't be rushing tonight.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><span>What is AI?</span></div>
+
+<!-- SLIDE 4 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">4</div>
+    <h2>What is AI? The Simple Version</h2>
+    <span class="timing">~3 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>The Elmer analogy is the most powerful tool in this talk — lean into it</li>
+        <li>Stress: it's just a text conversation, not a complex technical process</li>
+        <li>Stress: it's free, and it works on any browser — no special computer</li>
+        <li>Avoid technical explanations of how AI works — focus on what it does</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        So what actually <em>is</em> AI? I'm not going to explain the technology behind it — mostly because it's quite complicated and frankly not very interesting.
+        What I <em>am</em> going to tell you is what it does, because that's what matters.
+      </p>
+      <p>
+        The simplest way I can describe it: imagine you had an Elmer — one of those incredibly knowledgeable, helpful people in the club who seems to know the answer to every radio question ever asked.
+        And imagine that instead of only being available on club nights, they were available <em>twenty-four hours a day, seven days a week, including Christmas morning and three in the morning during a DX pile-up.</em>
+        <span class="cue">Small pause for effect.</span>
+        That's basically what AI is.
+      </p>
+      <p>
+        It has read — and I mean actually processed and understood — millions of books, technical manuals, forum posts, and articles. Including, by the way, a great deal of material specifically about amateur radio.
+      </p>
+      <p>
+        And you access it the same way you'd send a text message. You open a web page, you type your question, and within about three seconds you get a detailed answer. No app to install. No special equipment. It works on the phone in your pocket right now.
+      </p>
+      <p>
+        And here's the part that surprises most people: the best version — good enough for everything we're going to talk about tonight — is completely free.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">5</div>
+    <h2>Why Ham Radio + AI is a Perfect Match</h2>
+    <span class="timing">~3 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Four reasons: calculations, learning, writing, and 24/7 availability</li>
+        <li>The 3am DX opening example always gets a laugh and makes it real</li>
+        <li>Frame it as AI handling the boring background work so you have more time operating</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Ham radio is probably one of the best hobbies in the world for AI tools, and here's why.
+      </p>
+      <p>
+        First, our hobby involves a lot of <strong>technical calculations</strong>. Antenna lengths, matching networks, frequency maths — things that used to require a calculator, a handbook, and a bit of patience. AI handles all of that instantly, and it explains what it's doing as it goes.
+      </p>
+      <p>
+        Second, amateur radio is a hobby where you're <strong>always learning</strong>. There's always a new mode, a new band, a new piece of equipment to figure out. AI is the perfect study partner because it can explain anything at exactly the level you need — whether you're a brand new Foundation licensee or a thirty-year Advanced operator.
+      </p>
+      <p>
+        Third, the hobby involves a fair amount of <strong>writing</strong> — club newsletters, emails to DX stations, net scripts, meeting minutes. AI is outstanding at all of that. You give it the key points and it produces a well-written document in seconds.
+      </p>
+      <p>
+        And fourth — and this one always gets a nod — AI works at <strong>three o'clock in the morning</strong>.
+        <span class="cue">Pause.</span>
+        You know how it is. The DX station you've been chasing for months appears on the cluster, you work them, and then you wonder — did I have the right offset? Was my audio okay? What's the band plan for that country? No Elmer is awake at that hour. AI is always awake.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><span>Five Practical Examples</span></div>
+
+<!-- SLIDE 6 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">6</div>
+    <h2>Example 1 — Antenna Design Help</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Show the example prompt on screen — read it aloud</li>
+        <li>Emphasise: the more detail you give, the better the answer</li>
+        <li>AI gives the formula and the answer — you don't need to remember either</li>
+        <li>You can ask follow-up questions like a real conversation</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Alright, let's get into the practical stuff. Example one: antenna design.
+      </p>
+      <p>
+        Let's say you want to put up a 40-metre dipole. You've got two trees in the backyard, about eight metres high. What length do you cut the wire?
+        Now, most of us know the formula — 468 divided by the frequency in megahertz — but we might not have it at our fingertips, and working it out and then figuring out what wire to buy and how to feed it takes time.
+      </p>
+      <p>
+        Here's what you'd type into ChatGPT:
+        <span class="cue">Read the prompt on screen aloud, slowly.</span>
+      </p>
+      <p>
+        Notice a few things about that question. It mentions the location — Brisbane. It mentions the band — 40 metres. It mentions the physical constraints — eight metres high, two trees. The more specific you are, the better and more useful the answer.
+      </p>
+      <p>
+        Within seconds, AI will give you the wire lengths in both metres and feet, a materials list with Australian alternatives, suggestions for that specific height, and options for how to feed it — direct coax, with a balun, and so on.
+        It takes three seconds and you don't need the ARRL Handbook open on the bench.
+      </p>
+      <div class="transition">➜ Next slide — we'll look at the actual dipole diagram</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">7</div>
+    <h2>The 40m Half-Wave Dipole — Diagram</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Walk through the diagram: two arms, feed point, coax, insulators, supports</li>
+        <li>Each arm is about 10.2 metres — total 20.4 metres</li>
+        <li>The formula: 468 ÷ f(MHz) in feet — AI calculates this instantly</li>
+        <li>Mention the inverted-V option — only needs one centre support</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Here's what that 40-metre dipole actually looks like, for those who are more visual.
+        You've got two arms going out from the centre feed point — each one roughly ten and a quarter metres, for a total of just over twenty metres.
+        That's roughly the length of six car parks end to end — so it needs a bit of yard, but it's very achievable.
+      </p>
+      <p>
+        The centre feed point is where your coax connects. You'd run the coax down to the rig — and AI will tell you what length and what connector you need for your specific radio.
+        At each end there's a small insulator, and then a rope or cord going up to whatever supports you're using — trees, poles, whatever you have available.
+      </p>
+      <p>
+        If you only have one tall support, you can run it as an inverted-V shape — centre high, ends lower — and it performs almost as well as a horizontal dipole.
+        AI will explain all of this if you ask, and suggest the variation that suits your yard.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">8</div>
+    <h2>Example 2 — QSO Log Analysis</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Most logging software can export plain text or ADIF — copy and paste works</li>
+        <li>Even a few dozen QSOs is enough to get useful analysis</li>
+        <li>Works with ADIF, plain text, or even a photo of a paper log</li>
+        <li>AI finds patterns you'd never spot manually</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Example two: your QSO log.
+        Most of us keep some kind of log — whether it's in Ham Radio Deluxe, Log4OM, or a good old notebook.
+        If you export it to plain text — or even just copy a chunk of it — you can paste it straight into ChatGPT and start asking questions about it.
+      </p>
+      <p>
+        Ask things like: "What's my most active time of day?" Or "Which band do I work most contacts on?" Or "Show me all my DX contacts — which country have I worked the most?"
+      </p>
+      <p>
+        AI goes through the whole log and answers in seconds. It's the kind of analysis that would take you an hour with a spreadsheet, done instantly.
+        And it helps you plan — if AI tells you that eighty percent of your Japan contacts happen between seven and nine in the morning on forty metres, that's useful information for your next operating session.
+      </p>
+      <p>
+        And yes — if you keep a paper log, you can take a photo of the page and upload it.
+        AI can read the handwriting well enough to give you a useful analysis.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">9</div>
+    <h2>Example 3 — Writing Emails &amp; QSL Letters</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Many operators are great on air but less confident with formal writing</li>
+        <li>AI drafts the letter — you just add your callsign and personal touches</li>
+        <li>Also excellent for club newsletters, meeting notices, WICEN comms</li>
+        <li>Show the draft email example on screen</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Example three: writing.
+        Now, we've all worked a great station — maybe a rare DX, maybe a Japanese operator with a signal that nearly blew the headphones off — and we want to follow up with a proper email or a QSL request.
+        But writing a formal letter to someone you've only had a two-minute contact with can feel a bit awkward. What do you say? How formal should it be?
+      </p>
+      <p>
+        You just tell AI: "Write a friendly email to a Japanese ham I worked on 40 metres SSB last night. My callsign is VK4-whatever. I want to request a QSL card and say their signal was excellent."
+        Thirty seconds later, AI has written a polite, professional three-paragraph letter. You add your name, your callsign, maybe a personal detail — and it's done.
+      </p>
+      <p>
+        The same approach works for the club newsletter. Instead of staring at a blank page, you tell AI: "Write a 200-word article about our WICEN participation at this year's Ipswich Marathon." Give it the key details — dates, who was involved, frequencies used — and it produces a readable article that you can edit.
+        What used to take an hour takes ten minutes.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">10</div>
+    <h2>Example 4 — Schematic Troubleshooting</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Photo upload works in ChatGPT — you need a free account</li>
+        <li>AI narrows down the fault area — saves hours of frustration</li>
+        <li>Describe the symptoms clearly — the more detail, the better</li>
+        <li>Critical: always verify before touching mains-connected equipment</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Example four, and this one tends to get a lot of interest: fault-finding.
+        We've all got an old rig in the shack that's developed a problem. Maybe it worked last year and now the TX power is down. Maybe the receiver is noisy on certain bands.
+        Normally, you'd dig out the service manual, trace the circuit, and start prodding things with a multimeter — which can take days if you're not sure where to start.
+      </p>
+      <p>
+        Here's what you can do instead. Take a clear, well-lit photo of the schematic — just the relevant section — and upload it to ChatGPT.
+        Then describe the fault: "RX works perfectly but TX output is very low on all bands. The driver stage is Q3. What should I check first?"
+      </p>
+      <p>
+        AI will usually suggest two or three specific places to investigate, explain what symptoms would confirm each fault, and tell you how to test them.
+        It's not infallible — and we'll talk about that later — but it often points you in exactly the right direction and saves hours of frustration.
+      </p>
+      <p>
+        One important note: <span class="cue red">Emphasis here.</span>
+        Before you touch anything inside a mains-connected piece of equipment, please have it verified by someone with the right qualifications.
+        AI can suggest where to look — it cannot replace a trained technician when mains voltages are involved.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 11 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">11</div>
+    <h2>Example 5 — Licence Study Buddy</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Target audience: anyone considering upgrading their licence</li>
+        <li>AI can generate practice questions — unlimited, on any topic</li>
+        <li>Explain at any level — beginner to expert</li>
+        <li>Supplement to WIA materials and club Elmers — not a replacement</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Example five: studying for your licence upgrade.
+        Maybe some of you here are thinking about going from Foundation to Standard, or Standard to Advanced.
+        Or maybe you just want to brush up on some theory you learned twenty years ago and have since forgotten.
+      </p>
+      <p>
+        AI is an extraordinary study companion for this. You can ask it to explain any concept at whatever level you need.
+        "Explain the difference between AM and FM to a complete beginner."
+        "Give me five practice questions on antenna theory for the Australian Advanced exam."
+        "I'm confused about impedance matching — explain it using an analogy."
+      </p>
+      <p>
+        It explains things differently every time you ask, which is actually very helpful when you're trying to understand something that isn't clicking.
+        And unlike an Elmer, it never runs out of patience and never makes you feel like you should already know the answer.
+      </p>
+      <p>
+        Use it alongside the WIA course materials and your club Elmers — not instead of them.
+        But as a study tool that's available at eleven o'clock at night when a question suddenly makes sense and you want to explore it further, it's outstanding.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><span>Getting Started</span></div>
+
+<!-- SLIDE 12 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">12</div>
+    <h2>ChatGPT — How to Get Started</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>chat.openai.com — free, just an email address to sign up</li>
+        <li>Works in any web browser — Chrome, Safari, Edge, Firefox</li>
+        <li>claude.ai is an equally good alternative if anyone has trouble</li>
+        <li>No payment card required for the free version</li>
+        <li>Interface is literally just a text box — like texting</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        So how do you actually get started? It's simpler than you might expect.
+      </p>
+      <p>
+        Go to chat.openai.com — that's c-h-a-t dot openai dot com.
+        Click "Sign up." You enter your email address, choose a password, and you're done.
+        No payment card. No subscription. The free version is completely adequate for everything we've talked about tonight.
+      </p>
+      <p>
+        The interface itself is just a text box at the bottom of the screen. You type your question, press Enter, and the answer appears above it. That's all. It works in any web browser — Chrome, Safari, Edge, Firefox, whatever you use.
+        And it works on your phone just as well as on a computer.
+      </p>
+      <p>
+        If you'd prefer an alternative, Claude — at claude.ai — is equally good and some people find the sign-up process slightly easier.
+        Either one is a fine starting point.
+      </p>
+      <div class="transition">➜ Next slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 13 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">13</div>
+    <h2>Getting Better Answers — Prompt Tips</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>The key skill is asking good questions — more detail = better answer</li>
+        <li>Four starter words cover 90% of ham radio uses: Explain, Compare, Rewrite, Summarise</li>
+        <li>Encourage them to take a photo of this slide with their phone</li>
+        <li>These four starters are on the handout if you've prepared one</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        The single most useful skill you can develop with AI is knowing how to ask a good question.
+        The good news is that AI is very forgiving — even a vague question usually gets a useful answer.
+        But a specific, detailed question gets a much better one.
+      </p>
+      <p>
+        There are four words that will start almost every useful question you'll ever ask.
+        <span class="cue">Point to each card on screen as you say it.</span>
+      </p>
+      <p>
+        <strong>"Explain."</strong> Use this when you want to understand something. "Explain SWR to me like I'm new to HF."
+        <strong>"Compare."</strong> Use this when you're making a decision. "Compare the IC-7300 and IC-7610 for a beginner HF station."
+        <strong>"Rewrite."</strong> Use this when you have some text that needs improving. "Rewrite this club notice to sound friendlier."
+        <strong>"Summarise."</strong> Use this when you have a long document. "Summarise the key points of this antenna manual in dot points."
+      </p>
+      <p>
+        Those four words, combined with specific details about what you're working on, will get you ninety percent of what you need.
+        <span class="cue">If you have a printed handout:</span> These four are on your handout — take it home and try one this week.
+      </p>
+      <div class="transition">➜ Next slide — DEMO TIME</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><span>Live Demos</span></div>
+
+<!-- SLIDE 14 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">14</div>
+    <h2>🔴 Live Demo — Try ChatGPT Now</h2>
+    <span class="timing">~8–10 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Ask everyone to get out their phone or tablet</li>
+        <li>QR codes on screen — scan to open ChatGPT or Claude</li>
+        <li>Walk around the room and help anyone who needs it</li>
+        <li>Have a backup device (club tablet/laptop) ready for anyone who can't access it</li>
+        <li>The suggested question on screen gives a great result every time</li>
+        <li>Allow time for people to see results and react</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        <span class="cue red">DEMO — Pause the slides. Get everyone hands-on.</span>
+      </p>
+      <p>
+        Alright — this is the bit I've been looking forward to. Please get out your phone or your tablet if you have one.
+        We're going to try this together right now.
+      </p>
+      <p>
+        On the screen you can see two QR codes. Scan one of them — either ChatGPT or Claude — with your phone camera.
+        If you're not sure how to scan a QR code, just point your camera at the big square pattern and a link should appear on the screen.
+        <span class="cue">Walk around and help anyone who's struggling. Give it a minute.</span>
+      </p>
+      <p>
+        If you already have an account, brilliant — just log in.
+        If not, tap "Sign up," enter your email address, choose a password, and you're in.
+        It takes about ninety seconds.
+        <span class="cue">Wait for most of the room to be at the text box.</span>
+      </p>
+      <p>
+        Now — on the screen there's a question. Type it in, or something like it, and hit send.
+        <span class="cue">Read the suggested question aloud:</span>
+        "I'm a ham radio operator in VK4. Explain WSPR to me in simple terms. Is the 40m band open to Japan right now, and how would I check?"
+      </p>
+      <p>
+        <span class="cue">Wait 30–60 seconds while people read their answers.</span>
+        What did it say? Has anyone got an interesting response? 
+        <span class="cue green">Invite two or three people to share what their screen said. React naturally — "yes, that's a good explanation," "interesting, it gave you a slightly different example," etc.</span>
+      </p>
+      <div class="transition">➜ Next slide — WSPR background, then second demo</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 15 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">15</div>
+    <h2>Propagation Prediction with WSPR</h2>
+    <span class="timing">~3 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>WSPR = "whisper" — the pronunciation always surprises people</li>
+        <li>Low-power beacon, automated, worldwide reception reports</li>
+        <li>wspr.rocks shows a real-time world map of signal paths</li>
+        <li>AI helps interpret what the map means for your operating plans</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Let's look at something related to what AI just explained to you — WSPR, which is pronounced "whisper."
+        <span class="cue">Ask:</span> How many of you have come across WSPR before?
+        <span class="cue">Wait for hands.</span>
+      </p>
+      <p>
+        WSPR stands for Weak Signal Propagation Reporter.
+        The idea is straightforward: a small transmitter — it can be as low as 200 milliwatts, less than a quarter of a watt — sends an automated beacon signal.
+        Receiving stations all around the world listen for it, and when they hear it, they report it to a central website.
+        That website then shows you, on a live world map, which stations heard your beacon and how strong the signal was.
+      </p>
+      <p>
+        The practical value for us is enormous. Before you call CQ on 40 metres looking for Japan, you can check WSPR and see whether any VK4 stations are currently being heard in JA.
+        If they are — the band is open, get on and call. If not — either wait, or try a different band.
+      </p>
+      <p>
+        And here's where AI comes in again. You can take the WSPR data — copy a few rows from the website — paste it into ChatGPT and ask: "What does this tell me about band conditions from VK4 right now?" And it gives you a plain-English analysis.
+      </p>
+      <div class="transition">➜ Next slide — second live demo</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 16 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">16</div>
+    <h2>🔴 Live Demo — Real-Time Propagation Maps</h2>
+    <span class="timing">~5 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Both tools require no account — just scan and view</li>
+        <li>Point out Australia on the WSPR map, trace paths to Japan and Europe</li>
+        <li>If any club member runs WSPR, their callsign may appear live!</li>
+        <li>PSKReporter covers all digital modes including FT8</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        <span class="cue red">DEMO — Keep phones out from the previous demo.</span>
+      </p>
+      <p>
+        We've still got our phones out — let's look at these two tools. Scan the left QR code for WSPR.rocks.
+        <span class="cue">Give people a moment.</span>
+        This one you don't even need an account for. It just opens and shows you a live map.
+      </p>
+      <p>
+        Have a look at the map. Find Australia — it's down in the bottom right. Now look at the lines going out from Australian stations. Those lines show where Australian signals are being received right now, in real time, tonight.
+        <span class="cue">Comment on what's visible — paths to Japan, USA, Europe, etc.</span>
+      </p>
+      <p>
+        Does anyone here run WSPR at home? If you do, your callsign might appear on that map right now.
+        <span class="cue">If anyone says yes — let the room see if they appear.</span>
+      </p>
+      <p>
+        The second tool — PSKReporter — shows the same kind of map but for all digital modes, including FT8 and FT4.
+        If you're an FT8 operator, PSKReporter will show you exactly who is receiving you and what your signal strength is globally.
+      </p>
+      <p>
+        And remember — if you want to understand what you're looking at, just ask AI. "These are my WSPR results from tonight on 40 metres. What does this tell me about propagation from VK4?"
+      </p>
+      <div class="transition">➜ Next slide — Safety</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><span>Safety &amp; Limitations</span></div>
+
+<!-- SLIDE 17 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">17</div>
+    <h2>Safety Tips for Using AI Online</h2>
+    <span class="timing">~4 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>This is one of the most important slides — don't rush it</li>
+        <li>Scammers use AI brand names to set up fake websites</li>
+        <li>Real ChatGPT/Claude will never ask for banking details</li>
+        <li>Bookmark the two trusted sites right now while phones are out</li>
+        <li>Suggest a separate email address as a practical tip</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Now — and this is important, so I'd like everyone's attention for a moment.
+        AI tools are genuinely useful, but as with anything on the internet, there are people out there trying to take advantage of others.
+        So let's talk about how to stay safe.
+      </p>
+      <p>
+        <strong>First: only use the trusted sites.</strong>
+        ChatGPT is at chat.openai.com. Claude is at claude.ai. Those are the two I'd recommend.
+        While you've still got your phone out, bookmark both of them right now.
+        <span class="cue">Give people 30 seconds to bookmark.</span>
+        That way you always come back to the right place.
+      </p>
+      <p>
+        <strong>Second: never enter sensitive personal information.</strong>
+        That means no bank account details, no Medicare number, no passwords, no full home address.
+        The legitimate AI tools — ChatGPT, Claude — don't need any of that information. They just need your question.
+        If a website asks you for financial details to "unlock AI," close it immediately and ask a trusted person to have a look at it.
+      </p>
+      <p>
+        <strong>Third: be wary of fake AI websites.</strong>
+        Scammers build websites that look like ChatGPT but aren't. They use similar names, similar logos, and they're designed to steal your login details.
+        If you find yourself on an AI-looking site that you didn't bookmark yourself, treat it with caution.
+      </p>
+      <p>
+        <strong>Fourth: use a separate email if you can.</strong>
+        It takes five minutes to create a free Gmail account specifically for AI tools.
+        That way, if anything goes wrong, your main email — the one you use for banking and personal communication — is untouched.
+      </p>
+      <div class="transition">➜ Next slide — Limitations</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 18 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">18</div>
+    <h2>What AI Gets Wrong</h2>
+    <span class="timing">~4 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>"Hallucinations" — AI states wrong facts confidently — this is the key limitation</li>
+        <li>Training cutoff — newer regulations, equipment, band plans may be wrong</li>
+        <li>AI cannot hear audio, read meters, or see the shack in real time</li>
+        <li>The golden rule: verify important technical decisions with a human or authoritative source</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        So we've seen a lot of what AI can do. Let's be equally honest about what it gets wrong. Because it does get things wrong, and it's important you know that before you rely on it.
+      </p>
+      <p>
+        The biggest issue is what people in the AI world call "hallucinations." This is a slightly odd word for it, but what it means is this: AI sometimes states something that is completely wrong — and it states it with total confidence, in the same calm, authoritative tone it uses when it's right.
+        There's no flicker of uncertainty. It just says the wrong thing as if it's fact.
+      </p>
+      <p>
+        For ham radio, this could mean a wrong frequency allocation, an incorrect component value, a made-up part number, or an out-of-date band plan.
+        So for anything technically important — anything you're going to act on — please verify it against a second source.
+        The ARRL Handbook, the WIA website, your equipment manual, or a knowledgeable club member.
+      </p>
+      <p>
+        The second limitation is that AI's knowledge has a cutoff date. It was trained up to a certain point in time, and it doesn't automatically know about things that happened after that — new regulations, new equipment, new IARU band plans.
+        Always check anything time-sensitive against a current source.
+      </p>
+      <p>
+        And third: AI cannot perceive the physical world. It can't hear the audio from your microphone, read your S-meter, or measure your SWR. It can only work with what you tell it.
+        So when troubleshooting, describe as much as you can — and then verify what it suggests before you act on it.
+      </p>
+      <p>
+        The golden rule: use AI as a starting point, not as the final word.
+      </p>
+      <div class="transition">➜ Next slide — Discussion time</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><span>Discussion &amp; Wrap-Up</span></div>
+
+<!-- SLIDE 19 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">19</div>
+    <h2>💬 Discussion Time</h2>
+    <span class="timing">~12–15 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Pose each question one at a time — let conversation flow naturally</li>
+        <li>Start with the most positive question to warm the room up</li>
+        <li>Don't rush — this is often the most valuable part of the evening</li>
+        <li>Invite quieter members by name if the conversation stalls</li>
+        <li>Validate all answers — there are no wrong responses here</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        <span class="cue green">DISCUSSION — Put down your notes. Facilitate conversation.</span>
+      </p>
+      <p>
+        Alright — let's open it up for a chat. I'm genuinely curious what you all think.
+        There are three questions on the screen, and we'll take them one at a time.
+      </p>
+      <p>
+        <strong>First question:</strong> What's the most useful thing AI could help you with in your ham shack or your club activities?
+        <span class="cue">Wait for hands or answers. Don't fill silence too quickly — give people a moment to think.</span>
+        <span class="cue">Good follow-ups: "Has anyone else thought of that?" / "That's a great one — anyone else?"</span>
+      </p>
+      <p>
+        <strong>Second question:</strong> Are you worried about AI giving wrong technical advice? How would you double-check something important?
+        <span class="cue">This often draws out healthy scepticism — validate it. "That's exactly the right attitude. Verify, verify, verify."</span>
+      </p>
+      <p>
+        <strong>Third question:</strong> Could AI help our club specifically — for example, writing the newsletter, preparing for WICEN events, or helping answer questions from new members?
+        <span class="cue">This often generates the most ideas. Let it run if the group is engaged.</span>
+      </p>
+      <div class="transition">➜ Next slide — First steps</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 20 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">20</div>
+    <h2>Your First Steps with AI</h2>
+    <span class="timing">~3 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Three concrete steps they can do this week — not "someday"</li>
+        <li>Step 1 takes 2 minutes. Step 2 takes 30 seconds. Step 3 is the ongoing habit.</li>
+        <li>Offer club member assistance for anyone who gets stuck</li>
+        <li>Suggest they report back at next meeting with what they tried</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        Let's wrap up with something very practical.
+        I'm going to give you exactly three things to do this week. Just three. You don't have to do all of them at once — but I'd encourage you to try at least the first one before we meet again.
+      </p>
+      <p>
+        <strong>Step one:</strong> Go to chat.openai.com, click Sign Up, enter your email, choose a password. Done. That's the account sorted. It takes about two minutes, and as I said — no payment card, no subscription required.
+      </p>
+      <p>
+        <strong>Step two:</strong> Ask your first ham radio question.
+        The one on the screen is a good starting point: "I'm a ham in VK4. Help me understand 40m propagation to Japan."
+        Just type it in, press Enter, and see what comes back.
+      </p>
+      <p>
+        <strong>Step three:</strong> Bookmark it and make it a habit.
+        Next time you have a radio question — about an antenna, about a mode, about a piece of kit — try AI first.
+        You might be surprised how often it saves you an hour of searching forums and handbooks.
+      </p>
+      <p>
+        And if anyone gets stuck — whether it's with the sign-up or with using it — please just ask any of the club members.
+        We're happy to help. That's what we're here for.
+      </p>
+      <div class="transition">➜ Next slide — Extra tools</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 21 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">21</div>
+    <h2>More Free Tools</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>HamStudy.org — best free licence exam practice, flash cards</li>
+        <li>QRZ.com — callsign lookup, logbook, bio pages</li>
+        <li>DXWatch.com — live DX cluster spots</li>
+        <li>WIA.org.au — official Australian amateur radio organisation</li>
+        <li>Encourage scanning while they still have phones out</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        While you've still got your phones out — here are four more sites worth bookmarking.
+        These aren't AI tools specifically, but they're free resources that work really well alongside AI.
+      </p>
+      <p>
+        HamStudy.org is the best free licence exam practice site I know of. Flash cards, practice tests, all the Australian exam questions — completely free.
+        QRZ.com most of you probably already know — callsign lookups, logbook, and biography pages for operators worldwide.
+        DXWatch is a live DX cluster — it shows what rare stations are being spotted right now and on what frequency.
+        And the WIA website is your authoritative Australian source for band plans, regulations, and amateur radio news.
+      </p>
+      <p>
+        Scan any of those now if you want them.
+        <span class="cue">Allow 60 seconds for scanning.</span>
+      </p>
+      <div class="transition">➜ Final slide</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 22 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">22</div>
+    <h2>Thank You &amp; 73!</h2>
+    <span class="timing">~2 min</span>
+  </div>
+  <div class="slide-body">
+    <div class="points">
+      <h3>Talking Points</h3>
+      <ul>
+        <li>Circle back to the key message from slide 2</li>
+        <li>Mention where the presentation will be available (website / email)</li>
+        <li>Offer a hands-on AI workshop at a future meeting if there's interest</li>
+        <li>Invite final questions — keep the room open</li>
+      </ul>
+    </div>
+    <div class="script">
+      <h3>Script</h3>
+      <p>
+        That's everything I had for tonight. Thank you all for your time, and for some really good questions and discussion.
+      </p>
+      <p>
+        I want to come back to what I said right at the start.
+        AI is not replacing the operator. It's a tool on the bench — a better manual, a faster note-taker, and a helpful tutor.
+        The operator — with sixty years of experience and a feel for the bands that no computer will ever replicate — is still you.
+      </p>
+      <p>
+        This presentation is available on the club website, and I'm happy to email it to anyone who would like it.
+        If there's enough interest, I'm also open to running a more hands-on workshop at a future meeting — where we sit down, get accounts set up, and work through some real ham radio questions together.
+        <span class="cue">Raise your hand if that sounds useful.</span>
+      </p>
+      <p>
+        Are there any final questions before we break for the evening?
+        <span class="cue green">Take questions. If you don't know an answer — "That's a great question. I'll find out and put it on the website."</span>
+      </p>
+      <p>
+        73 everyone — good DX and good luck with the AI.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK REFERENCE -->
+<div class="section-divider"><span>Quick Reference</span></div>
+<div style="background:#fff;border-radius:10px;padding:28px;box-shadow:0 2px 10px rgba(0,0,0,.08);margin-bottom:40px;">
+  <h2 style="font-family:Arial,sans-serif;font-size:18px;color:#0B2D53;margin-bottom:18px;">🗒️ Presenter Quick-Reference Card</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;font-family:Arial,sans-serif;font-size:15px;">
+    <div>
+      <p style="font-weight:700;color:#0B2D53;margin-bottom:8px;">Trusted sites to mention:</p>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:3px 0;">💬 chat.openai.com — ChatGPT (free)</li>
+        <li style="padding:3px 0;">🤖 claude.ai — Claude (free)</li>
+        <li style="padding:3px 0;">📡 wspr.rocks — WSPR map</li>
+        <li style="padding:3px 0;">📊 pskreporter.info — digital modes map</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-weight:700;color:#0B2D53;margin-bottom:8px;">Four prompt starters:</p>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:3px 0;">📖 "Explain…"</li>
+        <li style="padding:3px 0;">⚖️ "Compare…"</li>
+        <li style="padding:3px 0;">✏️ "Rewrite…"</li>
+        <li style="padding:3px 0;">📄 "Summarise…"</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-weight:700;color:#B71C1C;margin-bottom:8px;">Safety rules to stress:</p>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:3px 0;">✅ Only use trusted, bookmarked sites</li>
+        <li style="padding:3px 0;">❌ Never enter bank/Medicare details</li>
+        <li style="padding:3px 0;">⚠️ Always verify technical advice</li>
+        <li style="padding:3px 0;">🎣 Watch for fake AI websites</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-weight:700;color:#1B5E20;margin-bottom:8px;">If questions go off-track:</p>
+      <ul style="list-style:none;padding:0;">
+        <li style="padding:3px 0;">"Great question — let's note that down."</li>
+        <li style="padding:3px 0;">"I'll find out and post it on the website."</li>
+        <li style="padding:3px 0;">"Ask AI that exact question and let us know!"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+</body>
+</html>

@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI in the Ham Shack – VK4WIP</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B2D53;--blue:#1E5CB3;--gold:#F4C542;
+  --red:#E53935;--green:#2E7D32;--white:#fff;--light:#f0f6ff;
+}
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:#111;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;overflow:hidden;
+}
+#sw{position:relative;}
+#ss{
+  width:1200px;height:675px;position:relative;
+  overflow:hidden;box-shadow:0 25px 80px rgba(0,0,0,.8);
+  transform-origin:top center;
+}
+.slide{
+  position:absolute;inset:0;width:100%;height:100%;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transition:opacity .35s ease;
+}
+.slide.active{opacity:1;pointer-events:all;}
+
+/* ── Header bar ── */
+.sh{
+  padding:16px 48px;display:flex;align-items:center;
+  gap:16px;flex-shrink:0;
+}
+.sh h2{font-size:30px;font-weight:700;color:#fff;letter-spacing:.3px;line-height:1.2;}
+.badge{
+  background:rgba(255,255,255,.2);color:#fff;
+  padding:3px 14px;border-radius:20px;
+  font-size:17px;font-weight:600;margin-left:auto;white-space:nowrap;
+}
+
+/* ── Slide body ── */
+.sb{flex:1;padding:22px 48px 16px;overflow:hidden;background:#fff;}
+.sb.light{background:var(--light);}
+
+/* ── Header colours ── */
+.hn .sh{background:var(--navy);}
+.hb .sh{background:var(--blue);}
+.hg .sh{background:#1b6e20;}
+.hr .sh{background:var(--red);}
+.hd .sh{background:rgba(0,0,0,.25);}
+.hy .sh{background:#B8860B;}
+.hy .sh h2{color:#fff;}
+
+/* ── Typography ── */
+h1{font-size:58px;font-weight:800;line-height:1.1;}
+h3{font-size:28px;font-weight:600;margin-bottom:8px;}
+p{font-size:26px;line-height:1.55;}
+ul{list-style:none;padding:0;}
+li{
+  font-size:26px;line-height:1.5;
+  padding:7px 0 7px 36px;position:relative;
+}
+li::before{
+  content:'▶';position:absolute;left:0;
+  color:var(--gold);font-size:16px;top:12px;
+}
+strong{color:var(--gold);}
+em{color:var(--blue);font-style:normal;font-weight:600;}
+
+/* ── Layouts ── */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px;height:100%;}
+.t65{display:grid;grid-template-columns:65fr 35fr;gap:24px;height:100%;}
+.center{display:flex;align-items:center;justify-content:center;}
+
+/* ── Components ── */
+.card{
+  background:var(--light);border-radius:12px;
+  padding:18px 22px;border-left:6px solid var(--gold);
+}
+.card.cb{border-left-color:var(--blue);}
+.card.cr{border-left-color:var(--red);}
+.card.cg{border-left-color:var(--green);}
+.card h3{font-size:22px;color:var(--navy);margin-bottom:8px;}
+.card p{font-size:20px;color:#333;line-height:1.4;}
+
+.hl{
+  background:var(--navy);color:#fff;
+  border-radius:12px;padding:18px 26px;
+  font-size:24px;line-height:1.5;
+}
+.hl.gold{background:var(--gold);color:var(--navy);font-weight:700;}
+
+.prompt{
+  background:#1e1e1e;color:#a8ff78;
+  border-radius:10px;padding:18px 22px;
+  font-family:'Courier New',monospace;font-size:20px;
+  line-height:1.5;border:2px solid #333;
+}
+.prompt .lbl{color:#888;font-size:15px;margin-bottom:6px;}
+
+.agenda-item{
+  display:flex;align-items:center;gap:18px;
+  padding:12px 0;border-bottom:2px solid #e8f0fe;
+}
+.agenda-item:last-child{border-bottom:none;}
+.agenda-item .num{
+  width:42px;height:42px;background:var(--blue);color:#fff;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:700;flex-shrink:0;
+}
+.agenda-item p{font-size:26px;color:#222;}
+
+.warn{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:12px 0;border-bottom:1px solid #eee;
+}
+.warn:last-child{border-bottom:none;}
+.warn .ic{font-size:30px;flex-shrink:0;width:42px;text-align:center;}
+.warn p{font-size:23px;line-height:1.4;color:#222;}
+
+.step{
+  display:flex;align-items:flex-start;gap:18px;
+  padding:14px;background:var(--light);border-radius:12px;margin-bottom:14px;
+}
+.step .sn{
+  background:var(--navy);color:var(--gold);
+  width:50px;height:50px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:800;flex-shrink:0;
+}
+.step h3{font-size:24px;color:var(--navy);margin-bottom:4px;}
+.step p{font-size:21px;color:#444;}
+
+.qrc{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  background:#fff;border-radius:14px;padding:18px;
+  border:3px solid var(--gold);
+}
+.qrc img{width:170px;height:170px;display:block;}
+.qrc .ql{font-size:20px;font-weight:700;color:var(--navy);text-align:center;}
+.qrc .qu{font-size:15px;color:#555;text-align:center;word-break:break-all;}
+
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+
+.disc{
+  background:rgba(255,255,255,.12);border-radius:14px;
+  padding:18px 26px;margin-bottom:16px;border-left:6px solid var(--gold);
+}
+.disc .dn{font-size:15px;color:var(--gold);font-weight:700;
+  margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;}
+.disc p{font-size:24px;color:#fff;line-height:1.4;}
+
+.live{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;
+  padding:5px 16px;border-radius:20px;font-size:19px;font-weight:700;
+}
+.dot{
+  width:10px;height:10px;background:#fff;border-radius:50%;
+  animation:pulse 1s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+.gold-line{width:100px;height:4px;background:var(--gold);border-radius:2px;margin:0 auto;}
+
+/* ── Special slides ── */
+.title-slide{
+  background:var(--navy);color:#fff;
+  align-items:center;justify-content:center;
+  text-align:center;gap:16px;
+}
+.demo-slide{background:var(--navy);color:#fff;}
+.disc-slide{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+  color:#fff;
+}
+.ty-slide{
+  background:var(--navy);color:#fff;
+  align-items:center;justify-content:center;
+  text-align:center;gap:14px;
+}
+
+/* ── Controls ── */
+#controls{
+  display:flex;align-items:center;gap:14px;
+  padding:8px 20px;background:rgba(255,255,255,.07);border-radius:50px;
+}
+#controls button{
+  background:var(--blue);color:#fff;border:none;border-radius:8px;
+  padding:9px 22px;font-size:19px;font-weight:600;
+  cursor:pointer;transition:background .2s;
+}
+#controls button:hover{background:var(--navy);}
+#controls button:disabled{background:#444;cursor:not-allowed;}
+#controls .nb{
+  background:rgba(244,197,66,.15);border:2px solid var(--gold);
+  color:var(--gold);
+}
+#controls .nb:hover{background:rgba(244,197,66,.3);}
+#ctr{font-size:21px;color:rgba(255,255,255,.65);min-width:90px;text-align:center;}
+#kbh{font-size:13px;color:rgba(255,255,255,.3);margin-top:-4px;}
+
+/* ── Notes panel ── */
+#np{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(8,16,32,.97);border-top:3px solid var(--gold);
+  padding:16px 40px;transform:translateY(100%);
+  transition:transform .3s ease;z-index:100;
+}
+#np.open{transform:translateY(0);}
+#np h4{color:var(--gold);font-size:15px;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;}
+#nt{font-size:19px;color:rgba(255,255,255,.85);line-height:1.55;max-height:140px;overflow-y:auto;}
+</style>
+</head>
+<body>
+
+<div id="sw"><div id="ss">
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 1 — TITLE
+══════════════════════════════════════════════════════ -->
+<div class="slide title-slide active"
+  data-notes="Welcome everyone. Introduce yourself and your callsign. Ask for a quick show of hands — who has heard of ChatGPT? Who has tried it? This helps you gauge the room before you begin. Let them know this is a very practical session with live demos they can join in on.">
+
+  <div style="font-size:72px;line-height:1;">📡</div>
+  <div style="font-size:21px;color:var(--gold);font-weight:700;letter-spacing:3px;">
+    VK4WIP — IPSWICH &amp; DISTRICT AMATEUR RADIO CLUB
+  </div>
+  <div class="gold-line"></div>
+  <h1 style="color:#fff;font-size:62px;">
+    AI in the<br><span style="color:var(--gold);">Ham Shack</span>
+  </h1>
+  <p style="font-size:26px;color:rgba(255,255,255,.85);">Useful, Safe &amp; Simple — A Beginner's Guide</p>
+  <p style="font-size:19px;color:rgba(255,255,255,.5);">Club Presentation Night &nbsp;|&nbsp; 2026</p>
+  <div class="gold-line"></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 2 — KEY MESSAGE
+══════════════════════════════════════════════════════ -->
+<div class="slide hb"
+  data-notes="This one line is the whole talk. Repeat it at the start and at the end. AI is a tool on the bench — like a better manual, a faster note-taker, and a helpful tutor. It respects the operator's skill and doesn't threaten it. Let this land before moving on.">
+
+  <div class="sh"><h2>📻 The One Thing to Remember</h2></div>
+  <div class="sb center" style="flex-direction:column;gap:28px;">
+    <div class="hl gold" style="font-size:32px;text-align:center;padding:28px 40px;border-radius:18px;">
+      "AI is not replacing the operator.<br>
+      It is a smart assistant that saves time,<br>
+      explains things, and helps you learn faster."
+    </div>
+    <div style="display:flex;gap:32px;">
+      <div style="text-align:center;padding:18px 28px;background:var(--light);border-radius:14px;min-width:180px;">
+        <div style="font-size:42px;">📚</div>
+        <p style="font-size:22px;color:var(--navy);font-weight:700;margin-top:8px;">Better Manual</p>
+      </div>
+      <div style="text-align:center;padding:18px 28px;background:var(--light);border-radius:14px;min-width:180px;">
+        <div style="font-size:42px;">✍️</div>
+        <p style="font-size:22px;color:var(--navy);font-weight:700;margin-top:8px;">Faster Note-Taker</p>
+      </div>
+      <div style="text-align:center;padding:18px 28px;background:var(--light);border-radius:14px;min-width:180px;">
+        <div style="font-size:42px;">🎓</div>
+        <p style="font-size:22px;color:var(--navy);font-weight:700;margin-top:8px;">Helpful Tutor</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 3 — TONIGHT'S AGENDA
+══════════════════════════════════════════════════════ -->
+<div class="slide hn"
+  data-notes="Walk the agenda briefly. Reassure anyone who feels nervous about technology — this session is hands-on and completely beginner-friendly. There are no silly questions. Point out that the live demo slides will let them try AI on their own phone.">
+
+  <div class="sh"><h2>📋 Tonight's Agenda</h2><span class="badge">6 sections</span></div>
+  <div class="sb">
+    <div class="agenda-item"><div class="num">1</div><p>What AI actually is — <strong>plain English, no jargon</strong></p></div>
+    <div class="agenda-item"><div class="num">2</div><p>Five practical uses in <strong>your ham shack</strong></p></div>
+    <div class="agenda-item"><div class="num">3</div><p>🔴 <strong>Live demo</strong> — try it right now on your phone!</p></div>
+    <div class="agenda-item"><div class="num">4</div><p>🌏 <strong>Propagation tools</strong> — real-time band maps</p></div>
+    <div class="agenda-item"><div class="num">5</div><p>⚠️ <strong>Safety tips</strong> — what to watch out for</p></div>
+    <div class="agenda-item"><div class="num">6</div><p>💬 <strong>Discussion</strong> + your questions answered</p></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 4 — WHAT IS AI?
+══════════════════════════════════════════════════════ -->
+<div class="slide hb"
+  data-notes="Keep this analogy front and centre — the Elmer. Every ham knows what an Elmer is. AI is like having that person available at 3am when you're in a DX pile-up and can't remember the band plan. It's read millions of manuals, handbooks, and forum posts. It doesn't replace your Elmer; it's always available when your Elmer isn't.">
+
+  <div class="sh"><h2>🤖 What is AI? The Simple Version</h2></div>
+  <div class="sb">
+    <div class="hl gold" style="margin-bottom:22px;font-size:28px;">
+      AI = A very knowledgeable assistant you can type questions to
+    </div>
+    <ul>
+      <li>Like having an <strong>Elmer available 24 hours a day, 7 days a week</strong></li>
+      <li>It has read <strong>millions of books, manuals, and radio guides</strong></li>
+      <li>You type a question — it responds <strong>within seconds</strong></li>
+      <li>Can answer in plain English — <em>no jargon unless you want it</em></li>
+      <li>It <strong>never gets impatient</strong> — ask the same question 10 times if needed</li>
+      <li>The most useful tools are completely <strong>FREE</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 5 — WHY HAMS + AI
+══════════════════════════════════════════════════════ -->
+<div class="slide hn"
+  data-notes="Ham radio is a perfect hobby for AI because it combines technical depth, constant learning, and communication. Stress that AI makes the background work easier so operators spend MORE time on air. It handles the boring bits — calculations, drafting, summarising — so you can focus on operating.">
+
+  <div class="sh"><h2>📡 Why Ham Radio + AI is a Perfect Match</h2></div>
+  <div class="sb">
+    <div class="two">
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="card" style="flex:1;">
+          <h3>🔧 Technical Calculations</h3>
+          <p>Antenna lengths, impedance, frequency maths — AI handles it instantly without a calculator</p>
+        </div>
+        <div class="card cb" style="flex:1;">
+          <h3>📖 Always Learning</h3>
+          <p>Our hobby rewards curiosity. AI is the ultimate study partner for any topic, any time</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div class="card cg" style="flex:1;">
+          <h3>✍️ Writing Help</h3>
+          <p>QSL letters, club newsletters, emails to DX contacts — polished in minutes</p>
+        </div>
+        <div class="card cr" style="flex:1;">
+          <h3>🌙 Works at 3am</h3>
+          <p>During a rare DX opening, no Elmer is awake. AI is always ready with the band plan</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 6 — ANTENNA DESIGN
+══════════════════════════════════════════════════════ -->
+<div class="slide hy"
+  data-notes="This is where it gets concrete. Show them exactly what to type. Emphasise being specific — include your band, your constraints (tree height, yard size), and your location. The AI will give wire lengths, materials list, height tips, and feeding options. You can ask follow-up questions just like a real conversation.">
+
+  <div class="sh"><h2>📡 Example 1 — Antenna Design Help</h2></div>
+  <div class="sb">
+    <div class="t65">
+      <div>
+        <p style="margin-bottom:14px;color:#333;">Type this into ChatGPT:</p>
+        <div class="prompt">
+          <div class="lbl">💬 Your question:</div>
+          "I'm a ham in Brisbane, Australia. Calculate the wire lengths for a <strong style="color:#ffd700;">half-wave dipole for the 40-metre band</strong>. I can hang it between two trees about 8 metres high. What wire and connectors do I need?"
+        </div>
+        <p style="margin-top:18px;font-size:22px;color:#333;font-weight:700;">AI will give you:</p>
+        <ul style="margin-top:6px;">
+          <li style="font-size:22px;">Exact wire lengths in metres <em>and</em> feet</li>
+          <li style="font-size:22px;">Simple materials list with local alternatives</li>
+          <li style="font-size:22px;">Tips for your specific height and layout</li>
+          <li style="font-size:22px;">Feeding options — coax, balun, what to buy</li>
+        </ul>
+      </div>
+      <div class="center" style="flex-direction:column;gap:14px;">
+        <div style="background:var(--navy);border-radius:16px;padding:22px;text-align:center;color:#fff;">
+          <div style="font-size:44px;margin-bottom:8px;">📐</div>
+          <div style="font-size:24px;font-weight:700;color:var(--gold);">468 ÷ f(MHz)</div>
+          <div style="font-size:15px;color:rgba(255,255,255,.65);margin-top:4px;">= total dipole length in feet</div>
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.2);font-size:19px;">
+            468 ÷ 7.1 MHz<br>= <strong style="color:var(--gold);">65.9 feet</strong><br>
+            <span style="font-size:16px;color:rgba(255,255,255,.6);">(≈ 20.1 metres total)</span>
+          </div>
+        </div>
+        <div style="background:var(--light);border-radius:12px;padding:14px;text-align:center;border:2px solid var(--blue);">
+          <p style="font-size:17px;color:var(--navy);font-weight:600;">AI calculates this in seconds — no formula needed!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 7 — 40M DIPOLE DIAGRAM
+══════════════════════════════════════════════════════ -->
+<div class="slide hn"
+  data-notes="Walk through the diagram. Key points: each arm is about 10 metres, fed at the centre with coax. The inverted-V variation (centre elevated, ends lower) needs only one centre support — great for backyards. Horizontal gives better performance but needs two supports. At 8m height it's excellent for regional contacts across VK.">
+
+  <div class="sh"><h2>📡 The 40m Half-Wave Dipole</h2></div>
+  <div class="sb center">
+    <svg viewBox="0 0 1060 360" style="width:100%;max-height:430px;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1060" height="360" fill="#f0f6ff" rx="10"/>
+      <!-- Ground -->
+      <rect x="0" y="322" width="1060" height="38" fill="#8B7355" opacity=".4"/>
+      <text x="530" y="343" text-anchor="middle" font-size="15" fill="#5D4037" font-weight="600">Ground</text>
+      <!-- Left tree -->
+      <rect x="72" y="195" width="14" height="130" fill="#5D4037" rx="4"/>
+      <polygon points="79,55 50,130 108,130" fill="#2E7D32"/>
+      <polygon points="79,80 54,140 104,140" fill="#388E3C"/>
+      <!-- Right tree -->
+      <rect x="974" y="195" width="14" height="130" fill="#5D4037" rx="4"/>
+      <polygon points="981,55 952,130 1010,130" fill="#2E7D32"/>
+      <polygon points="981,80 956,140 1006,140" fill="#388E3C"/>
+      <!-- Rope left -->
+      <line x1="79" y1="115" x2="162" y2="136" stroke="#888" stroke-width="2" stroke-dasharray="6,4"/>
+      <!-- Rope right -->
+      <line x1="981" y1="115" x2="898" y2="136" stroke="#888" stroke-width="2" stroke-dasharray="6,4"/>
+      <!-- Left arm (red wire) -->
+      <line x1="155" y1="136" x2="530" y2="136" stroke="#E53935" stroke-width="6" stroke-linecap="round"/>
+      <!-- Right arm (red wire) -->
+      <line x1="530" y1="136" x2="905" y2="136" stroke="#E53935" stroke-width="6" stroke-linecap="round"/>
+      <!-- Left insulator -->
+      <ellipse cx="158" cy="136" rx="13" ry="9" fill="#FFF9C4" stroke="#F57F17" stroke-width="2.5"/>
+      <text x="158" y="162" text-anchor="middle" font-size="13" fill="#E65100" font-weight="600">Insulator</text>
+      <!-- Right insulator -->
+      <ellipse cx="902" cy="136" rx="13" ry="9" fill="#FFF9C4" stroke="#F57F17" stroke-width="2.5"/>
+      <text x="902" y="162" text-anchor="middle" font-size="13" fill="#E65100" font-weight="600">Insulator</text>
+      <!-- Feed point box -->
+      <rect x="504" y="116" width="52" height="38" fill="#1E5CB3" stroke="#0B2D53" stroke-width="2.5" rx="6"/>
+      <text x="530" y="139" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">Feed</text>
+      <!-- Coax -->
+      <line x1="530" y1="154" x2="530" y2="308" stroke="#333" stroke-width="5"/>
+      <line x1="524" y1="154" x2="524" y2="308" stroke="#888" stroke-width="2"/>
+      <text x="558" y="235" font-size="15" fill="#333" font-weight="600">RG-58 Coax</text>
+      <!-- Coax connector -->
+      <rect x="518" y="302" width="24" height="14" fill="#333" rx="3"/>
+      <text x="530" y="322" text-anchor="middle" font-size="13" fill="#333" font-weight="600">To Rig</text>
+      <!-- Left measurement -->
+      <line x1="158" y1="192" x2="530" y2="192" stroke="#1E5CB3" stroke-width="1.8" stroke-dasharray="5,4"/>
+      <line x1="158" y1="185" x2="158" y2="199" stroke="#1E5CB3" stroke-width="2"/>
+      <line x1="530" y1="185" x2="530" y2="199" stroke="#1E5CB3" stroke-width="2"/>
+      <text x="344" y="215" text-anchor="middle" font-size="19" fill="#1E5CB3" font-weight="700">≈ 10.2 m (33.5 ft)</text>
+      <!-- Right measurement -->
+      <line x1="530" y1="192" x2="902" y2="192" stroke="#1E5CB3" stroke-width="1.8" stroke-dasharray="5,4"/>
+      <line x1="902" y1="185" x2="902" y2="199" stroke="#1E5CB3" stroke-width="2"/>
+      <text x="716" y="215" text-anchor="middle" font-size="19" fill="#1E5CB3" font-weight="700">≈ 10.2 m (33.5 ft)</text>
+      <!-- Total label -->
+      <rect x="270" y="238" width="520" height="44" fill="#0B2D53" rx="10"/>
+      <text x="530" y="266" text-anchor="middle" font-size="21" fill="#F4C542" font-weight="700">Total: ≈ 20.4 m (66.9 ft) — tuned for 7.1 MHz</text>
+      <!-- Height indicator -->
+      <line x1="44" y1="136" x2="44" y2="322" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="10" y="229" font-size="14" fill="#666" font-weight="600" transform="rotate(-90,26,229)">≈ 8 m height</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 8 — QSO LOG ANALYSIS
+══════════════════════════════════════════════════════ -->
+<div class="slide hb"
+  data-notes="Most logging software (Ham Radio Deluxe, Log4OM, even paper logs) can export to plain text. Copy a chunk — even just 30-50 QSOs — paste it into ChatGPT and ask questions. The AI can instantly find patterns you'd never spot manually. Great for planning your operating schedule. Works with ADIF files, plain text, or even a photo of a paper log.">
+
+  <div class="sh"><h2>📒 Example 2 — QSO Log Analysis</h2></div>
+  <div class="sb">
+    <div class="t65">
+      <div>
+        <p style="margin-bottom:12px;font-size:24px;color:#222;font-weight:600;">Paste your log into ChatGPT and ask:</p>
+        <div class="prompt" style="margin-bottom:14px;">
+          <div class="lbl">💬 Example questions:</div>
+          "What is my most active time of day?"<br><br>
+          "Which bands am I working most contacts on?"<br><br>
+          "List all my DX contacts outside VK — which country appears most?"
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="background:var(--light);border-radius:12px;padding:16px;border-left:6px solid var(--gold);">
+          <h3 style="font-size:21px;color:var(--navy);margin-bottom:8px;">📊 AI Shows You:</h3>
+          <ul>
+            <li style="font-size:20px;padding:4px 0 4px 28px;">Peak operating hours</li>
+            <li style="font-size:20px;padding:4px 0 4px 28px;">Band usage breakdown</li>
+            <li style="font-size:20px;padding:4px 0 4px 28px;">DX countries worked</li>
+            <li style="font-size:20px;padding:4px 0 4px 28px;">Mode statistics (SSB / FT8)</li>
+          </ul>
+        </div>
+        <div style="background:#e8f5e9;border-radius:12px;padding:14px;border:2px solid var(--green);text-align:center;">
+          <p style="font-size:18px;color:var(--green);font-weight:700;">💡 Works with plain text, ADIF, or a photo of your paper log!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 9 — WRITING EMAILS
+══════════════════════════════════════════════════════ -->
+<div class="slide hn"
+  data-notes="Many members are comfortable on SSB but less confident writing formal correspondence — especially to rare DX stations or overseas contacts. AI makes this incredibly easy. You give a few details and it drafts a polite, professional email in seconds. You just add your name, callsign, and any personal touches. Also works for club newsletters, meeting agendas, and WICEN coordination messages.">
+
+  <div class="sh"><h2>✉️ Example 3 — Writing Emails &amp; QSL Letters</h2></div>
+  <div class="sb">
+    <div class="two">
+      <div>
+        <div class="prompt" style="margin-bottom:16px;">
+          <div class="lbl">💬 Ask AI:</div>
+          "Write a friendly email to a Japanese ham I worked on 40m SSB last night. My callsign is VK4XXX. I want to request a QSL card and compliment their signal."
+        </div>
+        <p style="font-size:22px;color:#333;font-weight:600;">Also great for:</p>
+        <ul style="font-size:22px;">
+          <li style="font-size:22px;padding:5px 0 5px 30px;">Club newsletter articles</li>
+          <li style="font-size:22px;padding:5px 0 5px 30px;">Meeting agendas &amp; minutes</li>
+          <li style="font-size:22px;padding:5px 0 5px 30px;">WICEN coordination messages</li>
+          <li style="font-size:22px;padding:5px 0 5px 30px;">Welcome letters for new members</li>
+        </ul>
+      </div>
+      <div>
+        <div style="background:#f9f9f9;border:2px solid #ddd;border-radius:12px;padding:18px;height:100%;">
+          <div style="font-size:15px;color:#888;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #eee;">🤖 AI Draft:</div>
+          <p style="font-size:18px;color:#222;line-height:1.6;">
+            Dear OM,<br><br>
+            It was a pleasure working you on 40m SSB last night. My callsign is <strong>VK4XXX</strong>, located in Ipswich, Queensland, Australia.<br><br>
+            Your signal was <strong>59 throughout our QSO</strong>. I would be honoured to exchange QSL cards via the bureau...<br><br>
+            <em style="color:#888;font-size:15px;">[continues for 3 more paragraphs]</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 10 — SCHEMATIC TROUBLESHOOTING
+══════════════════════════════════════════════════════ -->
+<div class="slide hb"
+  data-notes="This is one of the most powerful practical uses. Many members have old rigs with faults. Take a clear, well-lit photo of the schematic or PCB and upload it to ChatGPT (requires free account). AI won't always get it right but it often narrows down the fault quickly — saving hours of frustration. Remind them to always verify with a real technician before touching anything mains-connected. Critical safety message here.">
+
+  <div class="sh"><h2>🔧 Example 4 — Schematic Troubleshooting</h2></div>
+  <div class="sb">
+    <div class="t65">
+      <div>
+        <ul>
+          <li>Take a <strong>clear photo</strong> of your schematic or PCB</li>
+          <li>Upload the photo to <em>ChatGPT</em> (free with account)</li>
+          <li>Describe the problem: <em>"Low TX power on 20m only"</em></li>
+          <li>AI suggests <strong>likely fault areas to check</strong></li>
+          <li>Ask follow-up: <em>"How do I test the driver stage?"</em></li>
+        </ul>
+        <div class="prompt" style="margin-top:16px;">
+          <div class="lbl">💬 Example prompt:</div>
+          "Here's the schematic for my Yaesu FT-101. RX works fine but TX power is very low on all bands. The driver stage is Q3. What should I check first?"
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;">
+        <div style="font-size:64px;text-align:center;">📸</div>
+        <div style="background:var(--light);border-radius:12px;padding:14px;text-align:center;border:3px solid var(--blue);">
+          <p style="font-size:17px;color:var(--navy);font-weight:700;">Good photo tip:</p>
+          <p style="font-size:15px;color:#444;margin-top:4px;">Good lighting + full schematic in frame = much better AI analysis</p>
+        </div>
+        <div style="background:#fff3e0;border-radius:12px;padding:14px;text-align:center;border:2px solid #F57F17;">
+          <p style="font-size:15px;color:#E65100;font-weight:600;">⚠️ Always have a qualified technician verify advice before working on mains-connected equipment</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 11 — LICENCE STUDY
+══════════════════════════════════════════════════════ -->
+<div class="slide hn"
+  data-notes="Several members may be interested in upgrading from Foundation to Standard, or Standard to Advanced. AI is an excellent study companion — explains concepts at any level, generates practice questions, and never gets impatient! Emphasise that AI supplements proper study materials: WIA course notes, ARRL Handbook, and club Elmers. It is not a replacement but it is incredibly helpful.">
+
+  <div class="sh"><h2>🎓 Example 5 — Licence Study Buddy</h2></div>
+  <div class="sb">
+    <div class="t65">
+      <div>
+        <p style="font-size:24px;color:#222;margin-bottom:14px;">Studying for Foundation, Standard, or Advanced?</p>
+        <div class="prompt" style="margin-bottom:14px;">
+          <div class="lbl">💬 Try asking AI:</div>
+          "Explain the difference between AM and FM to a complete beginner"<br><br>
+          "Give me 5 practice questions about antenna theory for the Australian Advanced exam"<br><br>
+          "Why do we use a balun on a dipole? Explain simply, no jargon."
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="background:var(--navy);border-radius:14px;padding:18px;color:#fff;text-align:center;">
+          <div style="font-size:38px;margin-bottom:8px;">🕐</div>
+          <p style="font-size:19px;">Study at <strong style="color:var(--gold);">any hour</strong> — no waiting for class</p>
+        </div>
+        <div style="background:var(--navy);border-radius:14px;padding:18px;color:#fff;text-align:center;">
+          <div style="font-size:38px;margin-bottom:8px;">♾️</div>
+          <p style="font-size:19px;"><strong style="color:var(--gold);">Unlimited</strong> questions — it never gets impatient</p>
+        </div>
+        <div style="background:var(--navy);border-radius:14px;padding:18px;color:#fff;text-align:center;">
+          <div style="font-size:38px;margin-bottom:8px;">🎯</div>
+          <p style="font-size:19px;">Tailored to <strong style="color:var(--gold);">your level</strong> — beginner or expert</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 12 — HOW TO GET STARTED WITH CHATGPT
+══════════════════════════════════════════════════════ -->
+<div class="slide hb"
+  data-notes="Practical and reassuring. Many people are intimidated by technology but ChatGPT's interface is literally just a text box. You type, it replies — like SMS. Show them the interface on a projected screen if possible. Stress: free, no payment card needed, works on any device with a web browser. Claude is a good alternative if anyone struggles with ChatGPT's sign-up flow.">
+
+  <div class="sh"><h2>💬 ChatGPT — How to Get Started</h2></div>
+  <div class="sb">
+    <div class="two">
+      <div>
+        <ul>
+          <li>Made by <strong>OpenAI</strong> — a major technology company</li>
+          <li>Free to use at <strong>chat.openai.com</strong></li>
+          <li>Just type a question — <em>like texting a very smart friend</em></li>
+          <li>Works on <strong>phone, tablet, or computer</strong></li>
+          <li>No app to install — just a web browser</li>
+          <li>Only need an <strong>email address</strong> to sign up — no payment card</li>
+        </ul>
+        <div class="hl" style="margin-top:16px;font-size:22px;">
+          Alternative: <strong style="color:var(--gold);">Claude</strong> at claude.ai — also free, also excellent
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;">
+        <div style="background:var(--light);border-radius:16px;padding:22px;text-align:center;border:3px solid var(--blue);width:100%;">
+          <div style="font-size:48px;margin-bottom:8px;">💬</div>
+          <div style="font-size:20px;font-weight:700;color:var(--navy);">chat.openai.com</div>
+          <div style="font-size:15px;color:#666;margin-top:4px;">Free — just your email</div>
+        </div>
+        <div style="background:var(--light);border-radius:16px;padding:22px;text-align:center;border:3px solid var(--green);width:100%;">
+          <div style="font-size:48px;margin-bottom:8px;">🤖</div>
+          <div style="font-size:20px;font-weight:700;color:var(--navy);">claude.ai</div>
+          <div style="font-size:15px;color:#666;margin-top:4px;">Also free — very friendly interface</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 13 — PROMPT TIPS
+══════════════════════════════════════════════════════ -->
+<div class="slide hn"
+  data-notes="The more detail you give, the better the result. These four prompt starter words cover 90% of ham radio use cases: Explain (learning), Compare (decisions), Rewrite (editing), Summarise (reading manuals). Print these on the handout if you have one. Encourage members to take a photo of this slide with their phone.">
+
+  <div class="sh"><h2>💡 Getting Better Answers — Prompt Tips</h2><span class="badge">Key skill</span></div>
+  <div class="sb">
+    <div class="hl gold" style="margin-bottom:20px;font-size:24px;text-align:center;">
+      The more detail you give → the better the answer
+    </div>
+    <div class="two">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card" style="flex:1;">
+          <h3>📖 "Explain…"</h3>
+          <p>"Explain SWR to me like I'm new to HF radio"</p>
+        </div>
+        <div class="card cb" style="flex:1;">
+          <h3>⚖️ "Compare…"</h3>
+          <p>"Compare the Icom IC-7300 and IC-7610 for a beginner HF station"</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card cg" style="flex:1;">
+          <h3>✏️ "Rewrite…"</h3>
+          <p>"Rewrite this club notice to sound friendlier and easier to read"</p>
+        </div>
+        <div class="card cr" style="flex:1;">
+          <h3>📄 "Summarise…"</h3>
+          <p>"Summarise the key points of this antenna manual page in dot points"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 14 — DEMO: TRY AI NOW
+══════════════════════════════════════════════════════ -->
+<div class="slide demo-slide"
+  data-notes="DEMO — Pause here for 5–10 minutes. Ask everyone to get out their phone or tablet. Walk them through: 1) Go to chat.openai.com  2) Tap 'Sign up' and use their email  3) Type the suggested question. Walk around the room and help anyone who needs it. Have a club tablet ready as a backup. The suggested question gives a great, accessible result every time.">
+
+  <div class="sh" style="background:var(--red);padding:14px 48px;">
+    <div class="live"><div class="dot"></div> LIVE DEMO</div>
+    <h2 style="margin-left:18px;margin-bottom:0;">Try ChatGPT Right Now! 📱</h2>
+  </div>
+  <div style="flex:1;padding:20px 48px;display:flex;flex-direction:column;gap:14px;">
+    <div class="hl gold" style="font-size:22px;text-align:center;">
+      📱 Get out your phone — let's try it together!
+    </div>
+    <div class="qgrid" style="flex:1;align-items:center;">
+      <div class="qrc" style="height:100%;justify-content:center;">
+        <img src="https://quickchart.io/qr?text=https://chat.openai.com&size=170&margin=1" alt="QR: ChatGPT" loading="lazy" onerror="this.style.display='none'">
+        <div class="ql">💬 ChatGPT (Free)</div>
+        <div class="qu">chat.openai.com</div>
+      </div>
+      <div class="qrc" style="height:100%;justify-content:center;">
+        <img src="https://quickchart.io/qr?text=https://claude.ai&size=170&margin=1" alt="QR: Claude" loading="lazy" onerror="this.style.display='none'">
+        <div class="ql">🤖 Claude (Free)</div>
+        <div class="qu">claude.ai</div>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="lbl">💬 Your first question to try — copy this exactly:</div>
+      "I'm a ham radio operator in VK4. Explain WSPR to me in simple terms. Is the 40m band open to Japan right now, and how would I check?"
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 15 — WSPR INTRODUCTION
+══════════════════════════════════════════════════════ -->
+<div class="slide hb"
+  data-notes="WSPR is pronounced 'whisper'. It is a digital mode used specifically for propagation testing. A tiny transmitter (or SDR) sends an automated beacon at very low power and stations worldwide receive and report what they hear. The website wspr.rocks shows these reports on a world map in real time. Even 200 milliwatts can be heard across the Pacific. AI tools can help interpret what the data means for planning your next operating session.">
+
+  <div class="sh"><h2>🌏 Propagation Prediction with WSPR</h2></div>
+  <div class="sb">
+    <div class="two">
+      <div>
+        <div class="hl gold" style="margin-bottom:18px;">
+          <strong>WSPR</strong> = Weak Signal Propagation Reporter<br>
+          <span style="font-size:20px;font-weight:400;">(pronounced "whisper")</span>
+        </div>
+        <ul>
+          <li>A tiny automated beacon — <strong>even just 200 mW!</strong></li>
+          <li>Stations worldwide <strong>hear and report</strong> your signal</li>
+          <li>Creates a <em>real-time propagation map</em></li>
+          <li>Free to view at <strong>wspr.rocks</strong></li>
+          <li>AI can <strong>interpret what the map means</strong> for your plans</li>
+        </ul>
+      </div>
+      <div class="center">
+        <svg viewBox="0 0 290 270" style="width:270px;" xmlns="http://www.w3.org/2000/svg">
+          <rect width="290" height="270" fill="var(--navy)" rx="12"/>
+          <text x="145" y="28" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">40m Band Opening</text>
+          <text x="145" y="44" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.5)">Live WSPR paths from VK4</text>
+          <!-- Ionosphere -->
+          <path d="M 20 175 Q 145 65 270 175" stroke="rgba(100,180,255,.35)" stroke-width="3" fill="none"/>
+          <text x="145" y="82" text-anchor="middle" font-size="10" fill="rgba(100,180,255,.6)">Ionosphere</text>
+          <!-- Earth -->
+          <ellipse cx="145" cy="195" rx="120" ry="58" fill="#1565C0" opacity=".6"/>
+          <!-- VK4 -->
+          <ellipse cx="198" cy="205" rx="24" ry="15" fill="var(--gold)" opacity=".95"/>
+          <text x="198" y="209" text-anchor="middle" font-size="10" fill="var(--navy)" font-weight="800">VK4</text>
+          <!-- Japan -->
+          <ellipse cx="218" cy="148" rx="13" ry="9" fill="#E53935" opacity=".9"/>
+          <text x="218" y="152" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">JA</text>
+          <!-- Europe -->
+          <ellipse cx="95" cy="142" rx="20" ry="12" fill="#4CAF50" opacity=".9"/>
+          <text x="95" y="146" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">EU</text>
+          <!-- USA -->
+          <ellipse cx="62" cy="170" rx="20" ry="12" fill="#FF9800" opacity=".9"/>
+          <text x="62" y="174" text-anchor="middle" font-size="9" fill="#fff" font-weight="600">USA</text>
+          <!-- Signal paths -->
+          <path d="M 198 200 Q 208 175 218 153" stroke="var(--gold)" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+          <path d="M 196 200 Q 150 155 95 148" stroke="#4CAF50" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+          <path d="M 194 202 Q 130 182 62 174" stroke="#FF9800" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+          <!-- Legend -->
+          <rect x="10" y="238" width="270" height="28" fill="rgba(255,255,255,.08)" rx="6"/>
+          <text x="145" y="256" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.75)">Each line = your signal being received worldwide</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 16 — DEMO: PROPAGATION TOOLS
+══════════════════════════════════════════════════════ -->
+<div class="slide demo-slide"
+  data-notes="DEMO — Walk the group through wspr.rocks. Show how to select 40m and look for VK4 stations. Show the map. If someone has WSPR running at home tonight, their callsign might appear! PSKReporter is similar but shows all digital modes including FT8. Both are completely free to view — no account needed. Point to Australia on the map and trace signal paths to Japan and Europe.">
+
+  <div class="sh" style="background:var(--red);padding:14px 48px;">
+    <div class="live"><div class="dot"></div> LIVE DEMO</div>
+    <h2 style="margin-left:18px;margin-bottom:0;">Real-Time Propagation Maps 🌏</h2>
+  </div>
+  <div style="flex:1;padding:20px 48px;display:flex;flex-direction:column;gap:14px;">
+    <div class="hl gold" style="font-size:22px;text-align:center;">
+      🗺️ See live band conditions — no account needed!
+    </div>
+    <div class="qgrid" style="flex:1;align-items:center;">
+      <div class="qrc" style="height:100%;justify-content:center;">
+        <img src="https://quickchart.io/qr?text=https://wspr.rocks&size=170&margin=1" alt="QR: WSPR.rocks" loading="lazy" onerror="this.style.display='none'">
+        <div class="ql">📡 WSPR.rocks</div>
+        <div class="qu">wspr.rocks</div>
+      </div>
+      <div class="qrc" style="height:100%;justify-content:center;">
+        <img src="https://quickchart.io/qr?text=https://pskreporter.info/pskmap.html&size=170&margin=1" alt="QR: PSKReporter" loading="lazy" onerror="this.style.display='none'">
+        <div class="ql">📊 PSKReporter</div>
+        <div class="qu">pskreporter.info</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:12px 20px;display:flex;gap:16px;align-items:center;">
+      <span style="font-size:26px;">💡</span>
+      <p style="font-size:21px;">Ask AI: "I can see VK4 being heard in Japan on WSPR. Is this a good time to call CQ on 40m SSB for JA?"</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 17 — SAFETY TIPS
+══════════════════════════════════════════════════════ -->
+<div class="slide hr"
+  data-notes="Critical slide for a senior audience. Scammers increasingly use fake AI websites. Stick to two trusted sites: chat.openai.com and claude.ai. Bookmark them now. The real ChatGPT will never ask for your credit card just to use the free version. Never enter Medicare numbers, bank details, or passwords. If a website asking you to use 'AI' looks unfamiliar, close it and ask a trusted person. Use a separate email if possible.">
+
+  <div class="sh"><h2>🔒 Safety Tips for Using AI Online</h2></div>
+  <div class="sb" style="background:#fff;">
+    <div class="warn"><span class="ic">✅</span><p>Only use <strong>trusted sites</strong>: <em>chat.openai.com</em> or <em>claude.ai</em> — <strong>bookmark them right now</strong></p></div>
+    <div class="warn"><span class="ic">❌</span><p><strong>Never enter</strong> your bank details, passwords, Medicare number, or home address into any AI tool</p></div>
+    <div class="warn"><span class="ic">⚠️</span><p>AI can make <strong>honest mistakes</strong> — always double-check important technical information before acting on it</p></div>
+    <div class="warn"><span class="ic">🎣</span><p>Watch out for <strong>fake AI websites</strong> — scammers use AI brand names. When in doubt, ask a family member or club member first</p></div>
+    <div class="warn"><span class="ic">📧</span><p>Consider using a <strong>separate email</strong> for AI tools — e.g. a free Gmail created just for this purpose</p></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 18 — LIMITATIONS
+══════════════════════════════════════════════════════ -->
+<div class="slide hn"
+  data-notes="Hallucinations are when AI states something confidently that is completely wrong. For ham radio this could mean wrong frequency allocations, incorrect technical specs, or made-up part numbers. Always verify critical information against the WIA website, ARRL Handbook, equipment manuals, or a knowledgeable club member. AI is a tool, not an authority. Trust but verify.">
+
+  <div class="sh"><h2>⚠️ What AI Gets Wrong</h2><span class="badge">Know the limits</span></div>
+  <div class="sb">
+    <div class="two">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="card cr">
+          <h3>🎭 "Hallucinations"</h3>
+          <p>AI sometimes makes things up — <strong>confidently!</strong> Part numbers, regulations, and specs can be wrong. Always verify.</p>
+        </div>
+        <div class="card cr">
+          <h3>📅 Outdated Information</h3>
+          <p>Training data has a cutoff date. New band plans, equipment releases, and regulations may not be known to the AI.</p>
+        </div>
+        <div class="card cr">
+          <h3>🔇 Can't Hear or See</h3>
+          <p>AI cannot listen to your audio, read your S-meter, or measure your SWR. It advises based only on what <em>you</em> describe.</p>
+        </div>
+      </div>
+      <div class="center">
+        <div style="background:var(--navy);border-radius:16px;padding:26px;color:#fff;text-align:center;">
+          <div style="font-size:48px;margin-bottom:14px;">📚</div>
+          <h3 style="color:var(--gold);font-size:24px;margin-bottom:12px;">The Golden Rule</h3>
+          <p style="font-size:19px;line-height:1.55;">For important technical decisions, always verify with:<br><br>
+            • Your Elmer<br>• ARRL Handbook<br>• WIA website<br>• Manufacturer specs</p>
+          <div style="margin-top:16px;padding:10px;background:rgba(244,197,66,.15);border-radius:10px;">
+            <p style="font-size:18px;color:var(--gold);font-weight:700;">Use AI as a starting point — not as the final word</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 19 — DISCUSSION
+══════════════════════════════════════════════════════ -->
+<div class="slide disc-slide"
+  data-notes="DISCUSSION — Allow 10–15 minutes. These three prompts are designed to draw out different types of responses: the first is positive (what can AI do for me), the second is critical (what worries me about accuracy), the third is about the club community. Invite quieter members to share. There are no wrong answers — the goal is to get everyone thinking and comfortable with the topic.">
+
+  <div class="sh hd"><h2>💬 Discussion Time</h2><span class="badge">~10–15 min</span></div>
+  <div style="flex:1;padding:20px 48px;display:flex;flex-direction:column;justify-content:space-evenly;">
+    <div class="disc">
+      <div class="dn">Discussion 1</div>
+      <p>"What's the <strong>most useful thing AI could help you with</strong> in your ham shack or club activities?"</p>
+    </div>
+    <div class="disc">
+      <div class="dn">Discussion 2</div>
+      <p>"Are you <strong>worried about AI giving wrong technical advice?</strong> How would you double-check important information?"</p>
+    </div>
+    <div class="disc">
+      <div class="dn">Discussion 3</div>
+      <p>"Could AI help our club — for example, <strong>writing the newsletter, preparing WICEN event plans, or welcoming new members?</strong>"</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 20 — YOUR FIRST STEPS
+══════════════════════════════════════════════════════ -->
+<div class="slide hn"
+  data-notes="Keep this practical and achievable. Three steps they can do THIS WEEK. Step 1 takes 2 minutes. Step 2 takes 30 seconds. Step 3 is the ongoing habit. Offer help from club members for anyone who gets stuck. The handout (if you have one) should contain these three steps plus the four prompt starters from slide 13. Encourage them to try it before next meeting and report back.">
+
+  <div class="sh"><h2>🚀 Your First Steps with AI</h2><span class="badge">Do this week!</span></div>
+  <div class="sb">
+    <div class="step">
+      <div class="sn">1</div>
+      <div>
+        <h3>Create your free account</h3>
+        <p>Go to <strong>chat.openai.com</strong> → Sign up → Enter your email. Takes 2 minutes. No payment card needed.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">2</div>
+      <div>
+        <h3>Ask your first ham radio question</h3>
+        <p>Type: <em>"I'm a ham in VK4. Help me understand 40m propagation to Japan."</em> — just see what it says!</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">3</div>
+      <div>
+        <h3>Bookmark it and keep exploring</h3>
+        <p>Save <strong>chat.openai.com</strong> as a favourite. Next time you have a ham radio question — try AI first!</p>
+      </div>
+    </div>
+    <div class="hl gold" style="font-size:22px;text-align:center;">
+      💡 Be specific in your questions — the more detail you give, the better the answer!
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 21 — ADDITIONAL FREE TOOLS
+══════════════════════════════════════════════════════ -->
+<div class="slide hb"
+  data-notes="Bonus slide — show these if time permits or leave as a resource. HamStudy is excellent for licence exam prep — free flashcards and practice tests. QRZ.com uses AI in some lookups. QRZCQ.com and DXWatch are good DX resources. Encourage members to scan the QR codes now while they have their phones out.">
+
+  <div class="sh"><h2>🛠️ More Free AI &amp; Ham Radio Tools</h2></div>
+  <div class="sb">
+    <div class="qgrid">
+      <div class="qrc">
+        <img src="https://quickchart.io/qr?text=https://hamstudy.org&size=155&margin=1" alt="QR: HamStudy" loading="lazy" onerror="this.style.display='none'">
+        <div class="ql">📝 HamStudy.org</div>
+        <div class="qu">Licence exam practice tests — free</div>
+      </div>
+      <div class="qrc">
+        <img src="https://quickchart.io/qr?text=https://www.qrz.com&size=155&margin=1" alt="QR: QRZ" loading="lazy" onerror="this.style.display='none'">
+        <div class="ql">📡 QRZ.com</div>
+        <div class="qu">Callsign lookup &amp; logbook</div>
+      </div>
+      <div class="qrc">
+        <img src="https://quickchart.io/qr?text=https://dxwatch.com&size=155&margin=1" alt="QR: DXWatch" loading="lazy" onerror="this.style.display='none'">
+        <div class="ql">🌐 DXWatch.com</div>
+        <div class="qu">Live DX cluster spots</div>
+      </div>
+      <div class="qrc">
+        <img src="https://quickchart.io/qr?text=https://www.wia.org.au&size=155&margin=1" alt="QR: WIA" loading="lazy" onerror="this.style.display='none'">
+        <div class="ql">🇦🇺 WIA.org.au</div>
+        <div class="qu">Wireless Institute of Australia</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 22 — THANK YOU
+══════════════════════════════════════════════════════ -->
+<div class="slide ty-slide"
+  data-notes="Closing slide. Thank the audience for their time. This presentation is available on the club website or by email — mention that. Invite questions. Remind members that club Elmers are available to help anyone who wants to try AI tools. Offer to run a hands-on workshop next month if there's interest. 73 and good DX!">
+
+  <div class="gold-line"></div>
+  <div style="font-size:68px;line-height:1;">📡</div>
+  <h1 style="color:var(--gold);font-size:68px;">Thank You!</h1>
+  <div style="display:flex;gap:6px;align-items:flex-end;justify-content:center;height:52px;margin:4px 0;">
+    <div style="width:14px;background:var(--gold);border-radius:3px 3px 0 0;height:22px;opacity:.5;"></div>
+    <div style="width:14px;background:var(--gold);border-radius:3px 3px 0 0;height:30px;opacity:.65;"></div>
+    <div style="width:14px;background:var(--gold);border-radius:3px 3px 0 0;height:38px;opacity:.8;"></div>
+    <div style="width:14px;background:var(--gold);border-radius:3px 3px 0 0;height:46px;opacity:.9;"></div>
+    <div style="width:14px;background:var(--gold);border-radius:3px 3px 0 0;height:52px;"></div>
+  </div>
+  <p style="font-size:34px;color:rgba(255,255,255,.9);">73 de <strong style="color:var(--gold);">VK4WIP</strong></p>
+  <p style="font-size:22px;color:rgba(255,255,255,.6);">Ipswich &amp; District Amateur Radio Club</p>
+  <div style="display:flex;gap:36px;align-items:center;justify-content:center;margin:10px 0;">
+    <div style="text-align:center;">
+      <p style="font-size:17px;color:rgba(255,255,255,.45);">Website</p>
+      <p style="font-size:20px;color:var(--gold);font-weight:700;">ipswichradioclub.org.au</p>
+    </div>
+    <div style="width:2px;height:36px;background:rgba(255,255,255,.15);"></div>
+    <div style="text-align:center;">
+      <p style="font-size:17px;color:rgba(255,255,255,.45);">Questions?</p>
+      <p style="font-size:20px;color:var(--gold);font-weight:700;">Ask us tonight! 🙋</p>
+    </div>
+    <div style="width:2px;height:36px;background:rgba(255,255,255,.15);"></div>
+    <div style="text-align:center;">
+      <p style="font-size:17px;color:rgba(255,255,255,.45);">Next meeting</p>
+      <p style="font-size:20px;color:var(--gold);font-weight:700;">See you there!</p>
+    </div>
+  </div>
+  <div class="gold-line"></div>
+</div>
+
+</div></div><!-- end #ss / #sw -->
+
+<!-- ── Controls ── -->
+<div id="controls">
+  <button id="pb" onclick="go(-1)" disabled>◀ Prev</button>
+  <span id="ctr">1 / 22</span>
+  <button id="nb2" onclick="go(1)">Next ▶</button>
+  <button class="nb" onclick="toggleNotes()">📝 Notes</button>
+  <button class="nb" onclick="toggleFS()" title="Fullscreen">⛶</button>
+</div>
+<div id="kbh">← → Space to navigate &nbsp;|&nbsp; N = notes &nbsp;|&nbsp; F = fullscreen</div>
+
+<!-- ── Presenter notes panel ── -->
+<div id="np">
+  <h4>📝 Presenter Notes — Slide <span id="ns">1</span></h4>
+  <div id="nt">Loading…</div>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total  = slides.length;
+let cur = 0, notesOpen = false;
+
+function show(n) {
+  slides[cur].classList.remove('active');
+  cur = Math.max(0, Math.min(n, total - 1));
+  slides[cur].classList.add('active');
+  document.getElementById('ctr').textContent  = (cur+1) + ' / ' + total;
+  document.getElementById('pb').disabled       = cur === 0;
+  document.getElementById('nb2').disabled      = cur === total - 1;
+  document.getElementById('ns').textContent    = cur + 1;
+  document.getElementById('nt').textContent    = slides[cur].dataset.notes || 'No notes for this slide.';
+}
+
+function go(d) { show(cur + d); }
+
+function toggleNotes() {
+  notesOpen = !notesOpen;
+  document.getElementById('np').classList.toggle('open', notesOpen);
+}
+
+function toggleFS() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ')  { e.preventDefault(); go(1); }
+  if (e.key === 'ArrowLeft')                    { e.preventDefault(); go(-1); }
+  if (e.key === 'n' || e.key === 'N')           toggleNotes();
+  if (e.key === 'f' || e.key === 'F')           toggleFS();
+});
+
+// Responsive scaling
+function scale() {
+  const ss  = document.getElementById('ss');
+  const sw  = document.getElementById('sw');
+  const vw  = window.innerWidth  - 32;
+  const vh  = window.innerHeight - 110;
+  const s   = Math.min(vw / 1200, vh / 675);
+  ss.style.transform = 'scale(' + s + ')';
+  sw.style.width     = (1200 * s) + 'px';
+  sw.style.height    = (675  * s) + 'px';
+}
+window.addEventListener('resize', scale);
+scale();
+
+// Init notes
+document.getElementById('nt').textContent = slides[0].dataset.notes || '';
+</script>
+</body>
+</html>
