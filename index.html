@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI in the Ham Shack — VK4WIP</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B2D53;--blue:#1E5CB3;--gold:#F4C542;--white:#fff;
+}
+body{
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:var(--navy);
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:32px 16px;
+}
+header{text-align:center;margin-bottom:48px;}
+.badge{
+  display:inline-block;
+  background:var(--gold);color:var(--navy);
+  font-size:13px;font-weight:800;letter-spacing:2px;
+  text-transform:uppercase;border-radius:4px;
+  padding:4px 12px;margin-bottom:20px;
+}
+h1{
+  color:var(--white);
+  font-size:clamp(24px,4vw,42px);
+  font-weight:700;line-height:1.2;
+  margin-bottom:8px;
+}
+h1 span{color:var(--gold);}
+p.sub{
+  color:rgba(255,255,255,.6);
+  font-size:18px;margin-top:8px;
+}
+.cards{
+  display:flex;gap:28px;flex-wrap:wrap;justify-content:center;
+  max-width:780px;width:100%;
+}
+.card{
+  flex:1;min-width:280px;max-width:340px;
+  background:rgba(255,255,255,.07);
+  border:2px solid rgba(255,255,255,.15);
+  border-radius:16px;padding:36px 32px;
+  text-align:center;
+  text-decoration:none;
+  transition:background .2s,border-color .2s,transform .15s;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+}
+.card:hover{
+  background:rgba(255,255,255,.13);
+  border-color:var(--gold);
+  transform:translateY(-3px);
+}
+.card .icon{font-size:52px;line-height:1;}
+.card h2{color:var(--white);font-size:22px;font-weight:700;}
+.card p{color:rgba(255,255,255,.6);font-size:15px;line-height:1.5;}
+.card .btn{
+  margin-top:8px;
+  background:var(--gold);color:var(--navy);
+  font-weight:800;font-size:15px;
+  border-radius:8px;padding:10px 24px;
+  letter-spacing:.5px;
+}
+.card:hover .btn{background:#fff;}
+footer{
+  margin-top:52px;
+  color:rgba(255,255,255,.3);
+  font-size:13px;text-align:center;
+  line-height:1.8;
+}
+footer a{color:rgba(255,255,255,.4);text-decoration:none;}
+footer a:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">📡 VK4WIP Club Night</div>
+  <h1>AI in the <span>Ham Shack</span></h1>
+  <p class="sub">Ipswich &amp; District Amateur Radio Club</p>
+</header>
+
+<div class="cards">
+  <a class="card" href="ham-ai-presentation.html" target="_blank">
+    <div class="icon">📊</div>
+    <h2>Presentation</h2>
+    <p>Full 23-slide slideshow.<br>Open on the projector screen.</p>
+    <div class="btn">Open Presentation ▶</div>
+  </a>
+
+  <a class="card" href="ham-ai-script.html" target="_blank">
+    <div class="icon">📄</div>
+    <h2>Speaker Script</h2>
+    <p>Full talking points &amp; script.<br>Open in a second window.</p>
+    <div class="btn">Open Script ▶</div>
+  </a>
+</div>
+
+<footer>
+  AI in the Ham Shack &mdash; VK4WIP Club Night Presentation<br>
+  <a href="https://github.com/bwhite001/iadrc-ai-pres">github.com/bwhite001/iadrc-ai-pres</a>
+</footer>
+
+</body>
+</html>
