@@ -708,22 +708,24 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 14 — DEMO: TRY AI NOW
+     SLIDE 14 — DEMO: READ A RADIO MANUAL WITH AI
 ══════════════════════════════════════════════════════ -->
 <div class="slide demo-slide"
   data-notes="• DEMO — pause slides, get everyone hands-on (8–10 minutes).
 • Ask everyone to get out their phone or tablet.
 • Walk room and help with QR scanning and sign-up — have a backup device ready.
-• Suggested question on screen gives a reliable, interesting result every time.
-• After 30–60 seconds: ask 2–3 people to share what their screen said — react naturally.">
+• Intro line: 'Most of us have opened a radio manual, found the answer on page 83, and still not felt much wiser. Let's see what AI does with the same page.'
+• Show the prompt on screen; invite them to paste in any manual page they have handy, or use the example prompt as-is.
+• After 30–60 seconds: ask 2–3 people to share — what did it summarise? How did it rewrite it?
+• Follow-up prompts to suggest: 'Turn this into a 5-step checklist' / 'Explain this for someone returning to HF after 20 years.'">
 
   <div class="sh" style="background:var(--red);padding:14px 48px;">
     <div class="live"><div class="dot"></div> LIVE DEMO</div>
-    <h2 style="margin-left:18px;margin-bottom:0;">Try ChatGPT Right Now! 📱</h2>
+    <h2 style="margin-left:18px;margin-bottom:0;">Read a Radio Manual with AI 📄</h2>
   </div>
   <div style="flex:1;padding:20px 48px;display:flex;flex-direction:column;gap:14px;">
     <div class="hl gold" style="font-size:22px;text-align:center;">
-      📱 Get out your phone — let's try it together!
+      📱 Get out your phone — we're going to summarise a manual page together!
     </div>
     <div class="qgrid" style="flex:1;align-items:center;">
       <div class="qrc" style="height:100%;justify-content:center;">
@@ -738,14 +740,53 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
       </div>
     </div>
     <div class="prompt">
-      <div class="lbl">💬 Your first question to try — copy this exactly:</div>
-      "I'm a ham radio operator in VK4. Explain WSPR to me in simple terms. Is the 40m band open to Japan right now, and how would I check?"
+      <div class="lbl">💬 Paste in any manual page, then ask:</div>
+      "Here is a page from a radio manual or operating guide. Summarise the key points in plain English as a short dot-point checklist for someone returning to HF after 20 years."
     </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 15 — WSPR INTRODUCTION
+     SLIDE 15 — DEMO: AI AS YOUR EXAM TUTOR
+══════════════════════════════════════════════════════ -->
+<div class="slide demo-slide"
+  data-notes="• DEMO — phones are already out from the previous demo (5 minutes).
+• Ethical framing first — say it before showing the prompts: 'Not to cheat — to understand why the answer is right.'
+• Frame as useful for anyone upgrading, mentoring a new member, or brushing up on theory.
+• Walk through the three prompts in order — show how AI builds on each answer.
+• Invite someone to share what level explanation they found most useful.">
+
+  <div class="sh" style="background:var(--red);padding:14px 48px;">
+    <div class="live"><div class="dot"></div> LIVE DEMO</div>
+    <h2 style="margin-left:18px;margin-bottom:0;">AI as Your Exam Tutor 🎓</h2>
+  </div>
+  <div style="flex:1;padding:20px 48px;display:flex;flex-direction:column;gap:14px;">
+    <div class="hl gold" style="font-size:21px;text-align:center;">
+      Not to cheat — to understand <em>why</em> the answer is right
+    </div>
+    <div class="hl" style="font-size:20px;margin-bottom:4px;">
+      <strong>Sample theory question:</strong><br>
+      "What does an SWR of 3:1 indicate, and what is the likely effect on your transmitter?"
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>"Explain why the correct answer is right, in plain English."</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>"Explain it at three levels: beginner, Standard licence, and Advanced licence."</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>"Give me two more practice questions on the same topic."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 16 — WSPR INTRODUCTION
 ══════════════════════════════════════════════════════ -->
 <div class="slide hb"
   data-notes="• WSPR is pronounced 'whisper' — the pronunciation always surprises people.
@@ -806,7 +847,7 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 16 — DEMO: PROPAGATION TOOLS
+     SLIDE 17 — DEMO: PROPAGATION TOOLS
 ══════════════════════════════════════════════════════ -->
 <div class="slide demo-slide"
   data-notes="• DEMO — keep phones out from the previous demo (5 minutes).
@@ -843,7 +884,7 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 17 — SAFETY TIPS
+     SLIDE 18 — SAFETY TIPS
 ══════════════════════════════════════════════════════ -->
 <div class="slide hr"
   data-notes="• This is one of the most important slides — don't rush it.
@@ -863,7 +904,7 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 18 — LIMITATIONS
+     SLIDE 19 — LIMITATIONS
 ══════════════════════════════════════════════════════ -->
 <div class="slide hn"
   data-notes="• 'Hallucinations' = AI states wrong information confidently, in the same tone as correct information.
@@ -905,7 +946,7 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 19 — DISCUSSION
+     SLIDE 20 — DISCUSSION
 ══════════════════════════════════════════════════════ -->
 <div class="slide disc-slide"
   data-notes="• DISCUSSION — put down notes, facilitate conversation naturally (~12–15 minutes).
@@ -932,7 +973,7 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 20 — YOUR FIRST STEPS
+     SLIDE 21 — YOUR FIRST STEPS
 ══════════════════════════════════════════════════════ -->
 <div class="slide hn"
   data-notes="• Three concrete steps to do THIS WEEK — not 'someday'.
@@ -971,7 +1012,7 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 21 — ADDITIONAL FREE TOOLS
+     SLIDE 22 — ADDITIONAL FREE TOOLS
 ══════════════════════════════════════════════════════ -->
 <div class="slide hb"
   data-notes="• These are bonus resources — scan while phones are still out.
@@ -1008,7 +1049,7 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 </div>
 
 <!-- ══════════════════════════════════════════════════════
-     SLIDE 22 — THANK YOU
+     SLIDE 23 — THANK YOU
 ══════════════════════════════════════════════════════ -->
 <div class="slide ty-slide"
   data-notes="• Circle back to the key message from slide 2 — read it aloud one more time.
