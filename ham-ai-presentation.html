@@ -42,7 +42,13 @@ body{
 }
 
 /* ── Slide body ── */
-.sb{flex:1;padding:22px 48px 16px;overflow:hidden;background:#fff;}
+.sb{flex:1;padding:22px 48px 16px;overflow:hidden;background:#fff;position:relative;}
+.sb::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:url('ham-shack-watermark.jpg') center/cover;
+  mix-blend-mode:multiply;
+  opacity:.22;
+}
 .sb.light{background:var(--light);}
 
 /* ── Header colours ── */
