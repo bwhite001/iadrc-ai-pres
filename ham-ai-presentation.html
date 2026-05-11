@@ -768,18 +768,18 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
       <strong>Sample theory question:</strong><br>
       "What does an SWR of 3:1 indicate, and what is the likely effect on your transmitter?"
     </div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;flex-direction:column;gap:0;flex:1;justify-content:space-evenly;">
       <div class="step">
-        <div class="step-num">1</div>
-        <div>"Explain why the correct answer is right, in plain English."</div>
+        <div class="sn">1</div>
+        <p>"Explain why the correct answer is right, in plain English."</p>
       </div>
       <div class="step">
-        <div class="step-num">2</div>
-        <div>"Explain it at three levels: beginner, Standard licence, and Advanced licence."</div>
+        <div class="sn">2</div>
+        <p>"Explain it at three levels: beginner, Standard licence, and Advanced licence."</p>
       </div>
       <div class="step">
-        <div class="step-num">3</div>
-        <div>"Give me two more practice questions on the same topic."</div>
+        <div class="sn">3</div>
+        <p>"Give me two more practice questions on the same topic."</p>
       </div>
     </div>
   </div>
@@ -1156,8 +1156,8 @@ function scale() {
 window.addEventListener('resize', scale);
 scale();
 
-// Init notes
-document.getElementById('nt').textContent = slides[0].dataset.notes || '';
+// Init
+show(0);
 </script>
 </body>
 </html>
