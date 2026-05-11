@@ -862,25 +862,41 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 
   <div class="sh" style="background:var(--red);padding:14px 48px;">
     <div class="live"><div class="dot"></div> LIVE DEMO</div>
-    <h2 style="margin-left:18px;margin-bottom:0;">Real-Time Propagation Maps 🌏</h2>
+    <h2 style="margin-left:18px;margin-bottom:0;">Propagation Maps + AI Interpreter 🌏</h2>
   </div>
-  <div style="flex:1;padding:20px 48px;display:flex;flex-direction:column;gap:14px;">
+  <div style="flex:1;padding:20px 48px;display:flex;flex-direction:column;gap:16px;">
     <div class="hl gold" style="font-size:22px;text-align:center;">
-      🗺️ Tabs are open — live band conditions at a glance!
+      See the data → Ask AI what to do with it
     </div>
-    <div class="qgrid" style="flex:1;align-items:center;">
-      <div class="qrc" style="height:100%;justify-content:center;">
-        <div class="ql">📡 WSPR.rocks</div>
-        <div class="qu">wspr.rocks</div>
+    <div style="display:flex;gap:20px;flex:1;">
+      <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
+        <div class="step">
+          <div class="sn">1</div>
+          <p><strong>Open the maps</strong> — WSPR.rocks &amp; PSKReporter are in the tabs. Find VK4 signals on the map and note where they're being received.</p>
+        </div>
+        <div class="step">
+          <div class="sn">2</div>
+          <p><strong>Ask AI to interpret it:</strong></p>
+        </div>
+        <div class="prompt" style="margin-top:0;">
+          <div class="lbl">💬 Paste this into ChatGPT or Claude:</div>
+          "I can see VK4 signals being received in Japan and Europe on WSPR right now on 40m. Is this a good time to call CQ on 40m SSB for JA? What time would be best?"
+        </div>
+        <div class="step">
+          <div class="sn">3</div>
+          <p><strong>Try a follow-up:</strong> "Explain what WSPR actually measures and why it's useful for SSB operators."</p>
+        </div>
       </div>
-      <div class="qrc" style="height:100%;justify-content:center;">
-        <div class="ql">📊 PSKReporter</div>
-        <div class="qu">pskreporter.info</div>
+      <div style="display:flex;flex-direction:column;gap:12px;width:220px;justify-content:center;">
+        <div class="qrc">
+          <div class="ql">📡 WSPR.rocks</div>
+          <div class="qu">wspr.rocks</div>
+        </div>
+        <div class="qrc">
+          <div class="ql">📊 PSKReporter</div>
+          <div class="qu">pskreporter.info</div>
+        </div>
       </div>
-    </div>
-    <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:12px 20px;display:flex;gap:16px;align-items:center;">
-      <span style="font-size:26px;">💡</span>
-      <p style="font-size:21px;">Ask AI: "I can see VK4 being heard in Japan on WSPR. Is this a good time to call CQ on 40m SSB for JA?"</p>
     </div>
   </div>
 </div>
