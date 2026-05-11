@@ -209,16 +209,7 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
 #ctr{font-size:21px;color:rgba(255,255,255,.65);min-width:90px;text-align:center;}
 #kbh{font-size:13px;color:rgba(255,255,255,.3);margin-top:-4px;}
 
-/* ── Notes panel ── */
-#np{
-  position:fixed;bottom:0;left:0;right:0;
-  background:rgba(8,16,32,.97);border-top:3px solid var(--gold);
-  padding:16px 40px;transform:translateY(100%);
-  transition:transform .3s ease;z-index:100;
-}
-#np.open{transform:translateY(0);}
-#np h4{color:var(--gold);font-size:15px;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;}
-#nt{font-size:19px;color:rgba(255,255,255,.85);line-height:1.55;max-height:140px;overflow-y:auto;}
+
 </style>
 </head>
 <body>
@@ -1110,21 +1101,15 @@ em{color:var(--blue);font-style:normal;font-weight:600;}
   <button id="pb" onclick="go(-1)" disabled>◀ Prev</button>
   <span id="ctr">1 / 22</span>
   <button id="nb2" onclick="go(1)">Next ▶</button>
-  <button class="nb" onclick="toggleNotes()">📝 Notes</button>
   <button class="nb" onclick="toggleFS()" title="Fullscreen">⛶</button>
 </div>
-<div id="kbh">← → Space to navigate &nbsp;|&nbsp; N = notes &nbsp;|&nbsp; F = fullscreen</div>
+<div id="kbh">← → Space to navigate &nbsp;|&nbsp; F = fullscreen</div>
 
-<!-- ── Presenter notes panel ── -->
-<div id="np">
-  <h4>📝 Presenter Notes — Slide <span id="ns">1</span></h4>
-  <div id="nt">Loading…</div>
-</div>
 
 <script>
 const slides = document.querySelectorAll('.slide');
 const total  = slides.length;
-let cur = 0, notesOpen = false;
+let cur = 0;
 
 function show(n) {
   slides[cur].classList.remove('active');
@@ -1133,16 +1118,9 @@ function show(n) {
   document.getElementById('ctr').textContent  = (cur+1) + ' / ' + total;
   document.getElementById('pb').disabled       = cur === 0;
   document.getElementById('nb2').disabled      = cur === total - 1;
-  document.getElementById('ns').textContent    = cur + 1;
-  document.getElementById('nt').textContent    = slides[cur].dataset.notes || 'No notes for this slide.';
 }
 
 function go(d) { show(cur + d); }
-
-function toggleNotes() {
-  notesOpen = !notesOpen;
-  document.getElementById('np').classList.toggle('open', notesOpen);
-}
 
 function toggleFS() {
   if (!document.fullscreenElement) document.documentElement.requestFullscreen();
@@ -1152,7 +1130,6 @@ function toggleFS() {
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ')  { e.preventDefault(); go(1); }
   if (e.key === 'ArrowLeft')                    { e.preventDefault(); go(-1); }
-  if (e.key === 'n' || e.key === 'N')           toggleNotes();
   if (e.key === 'f' || e.key === 'F')           toggleFS();
 });
 

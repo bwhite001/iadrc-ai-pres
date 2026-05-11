@@ -157,6 +157,15 @@
     margin-top: 14px;
     display: inline-block;
   }
+  .transition a {
+    color: #F4C542;
+    text-decoration: none;
+    display: block;
+  }
+  .transition a:hover {
+    text-decoration: underline;
+    color: #fff;
+  }
 
   /* Timing overview */
   .timing-table {
@@ -273,7 +282,7 @@
 <div class="section-divider"><span>Opening</span></div>
 
 <!-- SLIDE 1 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-1">
   <div class="slide-header">
     <div class="slide-num">1</div>
     <h2>Title — AI in the Ham Shack</h2>
@@ -306,13 +315,13 @@
         <span class="cue">Note the number — reference it later.</span>
         Excellent. For those who have, tonight might give you some new ideas. For those who haven't — by the end of tonight, you'll have had a go yourself.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-2">➜ Next slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 2 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-2">
   <div class="slide-header">
     <div class="slide-num">2</div>
     <h2>The One Thing to Remember</h2>
@@ -347,13 +356,13 @@
         It acts like a <strong>faster note-taker</strong> — you describe something and it writes it up properly.
         And it acts like a <strong>helpful tutor</strong> — you tell it what you don't understand, and it explains it at whatever level you need.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-3">➜ Next slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 3 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-3">
   <div class="slide-header">
     <div class="slide-num">3</div>
     <h2>Tonight's Agenda</h2>
@@ -380,7 +389,7 @@
       <p>
         If you have a question at any point, please just put your hand up. We won't be rushing tonight.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-4">➜ Next slide</a></div>
     </div>
   </div>
 </div>
@@ -388,7 +397,7 @@
 <div class="section-divider"><span>What is AI?</span></div>
 
 <!-- SLIDE 4 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-4">
   <div class="slide-header">
     <div class="slide-num">4</div>
     <h2>What is AI? The Simple Version</h2>
@@ -425,13 +434,13 @@
       <p>
         And here's the part that surprises most people: the best version — good enough for everything we're going to talk about tonight — is completely free.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-5">➜ Next slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 5 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-5">
   <div class="slide-header">
     <div class="slide-num">5</div>
     <h2>Why Ham Radio + AI is a Perfect Match</h2>
@@ -465,7 +474,7 @@
         <span class="cue">Pause.</span>
         You know how it is. The DX station you've been chasing for months appears on the cluster, you work them, and then you wonder — did I have the right offset? Was my audio okay? What's the band plan for that country? No Elmer is awake at that hour. AI is always awake.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-6">➜ Next slide</a></div>
     </div>
   </div>
 </div>
@@ -473,7 +482,7 @@
 <div class="section-divider"><span>Five Practical Examples</span></div>
 
 <!-- SLIDE 6 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-6">
   <div class="slide-header">
     <div class="slide-num">6</div>
     <h2>Example 1 — Antenna Design Help</h2>
@@ -509,13 +518,13 @@
         Within seconds, AI will give you the wire lengths in both metres and feet, a materials list with Australian alternatives, suggestions for that specific height, and options for how to feed it — direct coax, with a balun, and so on.
         It takes three seconds and you don't need the ARRL Handbook open on the bench.
       </p>
-      <div class="transition">➜ Next slide — we'll look at the actual dipole diagram</div>
+      <div class="transition"><a href="#slide-7">➜ Next slide — we'll look at the actual dipole diagram</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 7 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-7">
   <div class="slide-header">
     <div class="slide-num">7</div>
     <h2>The 40m Half-Wave Dipole — Diagram</h2>
@@ -546,13 +555,13 @@
         If you only have one tall support, you can run it as an inverted-V shape — centre high, ends lower — and it performs almost as well as a horizontal dipole.
         AI will explain all of this if you ask, and suggest the variation that suits your yard.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-8">➜ Next slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 8 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-8">
   <div class="slide-header">
     <div class="slide-num">8</div>
     <h2>Example 2 — QSO Log Analysis</h2>
@@ -586,13 +595,13 @@
         And yes — if you keep a paper log, you can take a photo of the page and upload it.
         AI can read the handwriting well enough to give you a useful analysis.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-9">➜ Next slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 9 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-9">
   <div class="slide-header">
     <div class="slide-num">9</div>
     <h2>Example 3 — Writing Emails &amp; QSL Letters</h2>
@@ -623,13 +632,13 @@
         The same approach works for the club newsletter. Instead of staring at a blank page, you tell AI: "Write a 200-word article about our WICEN participation at this year's Ipswich Marathon." Give it the key details — dates, who was involved, frequencies used — and it produces a readable article that you can edit.
         What used to take an hour takes ten minutes.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-10">➜ Next slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 10 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-10">
   <div class="slide-header">
     <div class="slide-num">10</div>
     <h2>Example 4 — Schematic Troubleshooting</h2>
@@ -665,13 +674,13 @@
         Before you touch anything inside a mains-connected piece of equipment, please have it verified by someone with the right qualifications.
         AI can suggest where to look — it cannot replace a trained technician when mains voltages are involved.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-11">➜ Next slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 11 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-11">
   <div class="slide-header">
     <div class="slide-num">11</div>
     <h2>Example 5 — Licence Study Buddy</h2>
@@ -708,7 +717,7 @@
         Use it alongside the WIA course materials and your club Elmers — not instead of them.
         But as a study tool that's available at eleven o'clock at night when a question suddenly makes sense and you want to explore it further, it's outstanding.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-12">➜ Next slide</a></div>
     </div>
   </div>
 </div>
@@ -716,7 +725,7 @@
 <div class="section-divider"><span>Getting Started</span></div>
 
 <!-- SLIDE 12 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-12">
   <div class="slide-header">
     <div class="slide-num">12</div>
     <h2>ChatGPT — How to Get Started</h2>
@@ -751,13 +760,13 @@
         If you'd prefer an alternative, Claude — at claude.ai — is equally good and some people find the sign-up process slightly easier.
         Either one is a fine starting point.
       </p>
-      <div class="transition">➜ Next slide</div>
+      <div class="transition"><a href="#slide-13">➜ Next slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 13 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-13">
   <div class="slide-header">
     <div class="slide-num">13</div>
     <h2>Getting Better Answers — Prompt Tips</h2>
@@ -794,7 +803,7 @@
         Those four words, combined with specific details about what you're working on, will get you ninety percent of what you need.
         <span class="cue">If you have a printed handout:</span> These four are on your handout — take it home and try one this week.
       </p>
-      <div class="transition">➜ Next slide — DEMO TIME</div>
+      <div class="transition"><a href="#slide-14">➜ Next slide — DEMO TIME</a></div>
     </div>
   </div>
 </div>
@@ -802,7 +811,7 @@
 <div class="section-divider"><span>Live Demos</span></div>
 
 <!-- SLIDE 14 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-14">
   <div class="slide-header">
     <div class="slide-num">14</div>
     <h2>🔴 Live Demo — Read a Radio Manual with AI</h2>
@@ -845,13 +854,13 @@
         <span class="cue green">Invite the room: "Anyone want to suggest a different follow-up question?"</span>
         Try one live — it remembers the context, so the conversation keeps going.
       </p>
-      <div class="transition">➜ Next slide — exam tutor demo</div>
+      <div class="transition"><a href="#slide-15">➜ Next slide — exam tutor demo</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 15 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-15">
   <div class="slide-header">
     <div class="slide-num">15</div>
     <h2>🔴 Live Demo — AI as Your Exam Tutor</h2>
@@ -896,13 +905,13 @@
         That 3-step pattern is the important part. AI is not just giving an answer — it is helping you understand, then deepen, then practise.
         <span class="cue green">Ask: "Has anyone used AI for study like this before?" — take a show of hands or a brief comment.</span>
       </p>
-      <div class="transition">➜ Next slide — WSPR background</div>
+      <div class="transition"><a href="#slide-16">➜ Next slide — WSPR background</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 16 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-16">
   <div class="slide-header">
     <div class="slide-num">16</div>
     <h2>Propagation Prediction with WSPR</h2>
@@ -938,13 +947,13 @@
       <p>
         And here's where AI comes in again. You can take the WSPR data — copy a few rows from the website — paste it into ChatGPT and ask: "What does this tell me about band conditions from VK4 right now?" And it gives you a plain-English analysis.
       </p>
-      <div class="transition">➜ Next slide — propagation demo</div>
+      <div class="transition"><a href="#slide-17">➜ Next slide — propagation demo</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 17 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-17">
   <div class="slide-header">
     <div class="slide-num">17</div>
     <h2>🔴 Live Demo — Real-Time Propagation Maps</h2>
@@ -988,7 +997,7 @@
         That structure is useful because it turns raw information into interpretation, then into action.
         AI helps you read the picture, but you still make the operating decision.
       </p>
-      <div class="transition">➜ Next slide — Safety</div>
+      <div class="transition"><a href="#slide-18">➜ Next slide — Safety</a></div>
     </div>
   </div>
 </div>
@@ -996,7 +1005,7 @@
 <div class="section-divider"><span>Safety &amp; Limitations</span></div>
 
 <!-- SLIDE 18 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-18">
   <div class="slide-header">
     <div class="slide-num">18</div>
     <h2>Safety Tips for Using AI Online</h2>
@@ -1042,13 +1051,13 @@
         It takes five minutes to create a free Gmail account specifically for AI tools.
         That way, if anything goes wrong, your main email — the one you use for banking and personal communication — is untouched.
       </p>
-      <div class="transition">➜ Next slide — Limitations</div>
+      <div class="transition"><a href="#slide-19">➜ Next slide — Limitations</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 19 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-19">
   <div class="slide-header">
     <div class="slide-num">19</div>
     <h2>What AI Gets Wrong</h2>
@@ -1089,7 +1098,7 @@
       <p>
         The golden rule: use AI as a starting point, not as the final word.
       </p>
-      <div class="transition">➜ Next slide — Discussion time</div>
+      <div class="transition"><a href="#slide-20">➜ Next slide — Discussion time</a></div>
     </div>
   </div>
 </div>
@@ -1097,7 +1106,7 @@
 <div class="section-divider"><span>Discussion &amp; Wrap-Up</span></div>
 
 <!-- SLIDE 20 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-20">
   <div class="slide-header">
     <div class="slide-num">20</div>
     <h2>💬 Discussion Time</h2>
@@ -1136,13 +1145,13 @@
         <strong>Third question:</strong> Could AI help our club specifically — for example, writing the newsletter, preparing for WICEN events, or helping answer questions from new members?
         <span class="cue">This often generates the most ideas. Let it run if the group is engaged.</span>
       </p>
-      <div class="transition">➜ Next slide — First steps</div>
+      <div class="transition"><a href="#slide-21">➜ Next slide — First steps</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 21 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-21">
   <div class="slide-header">
     <div class="slide-num">21</div>
     <h2>Your First Steps with AI</h2>
@@ -1181,13 +1190,13 @@
         And if anyone gets stuck — whether it's with the sign-up or with using it — please just ask any of the club members.
         We're happy to help. That's what we're here for.
       </p>
-      <div class="transition">➜ Next slide — Extra tools</div>
+      <div class="transition"><a href="#slide-22">➜ Next slide — Extra tools</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 22 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-22">
   <div class="slide-header">
     <div class="slide-num">22</div>
     <h2>More Free Tools</h2>
@@ -1216,13 +1225,13 @@
         DXWatch is a live DX cluster — it shows what rare stations are being spotted right now and on what frequency.
         And the WIA website is your authoritative Australian source for band plans, regulations, and amateur radio news.
       </p>
-      <div class="transition">➜ Final slide</div>
+      <div class="transition"><a href="#slide-23">➜ Final slide</a></div>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 23 -->
-<div class="slide-block">
+<div class="slide-block" id="slide-23">
   <div class="slide-header">
     <div class="slide-num">23</div>
     <h2>Thank You &amp; 73!</h2>
